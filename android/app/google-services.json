@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "103597176816",
+    "project_id": "descartetest",
+    "storage_bucket": "descartetest.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:103597176816:android:d98f59206cbbfc67328f35",
+        "android_client_info": {
+          "package_name": "com.example.decarte_bem"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "103597176816-dqm0f9s74ib0aoonh1ar7bjk1cuqi3fl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD1RXFqO-iyFKmBFUgvKgqIaf8RhnQ8SVw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "103597176816-dqm0f9s74ib0aoonh1ar7bjk1cuqi3fl.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "103597176816-opj1fi3ne1f552snmaes6j3m840ak4i3.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.decarteBem"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
