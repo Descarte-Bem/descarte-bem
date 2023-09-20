@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "93822977761",
+    "project_id": "descarte-b78a4",
+    "storage_bucket": "descarte-b78a4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:93822977761:android:000e7344428ca24fafd9a0",
+        "android_client_info": {
+          "package_name": "com.example.decarte_bem"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDlcV0-nh0i-N7HtJNO909c1VZftxJ2iZ0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
