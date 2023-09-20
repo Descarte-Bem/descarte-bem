@@ -47,28 +47,28 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyDykUFkqwDg-kZvrfRs4e44n1k-RscWH20',
-    appId: '1:103597176816:web:b2d5a26dce9f1da9328f35',
-    messagingSenderId: '103597176816',
-    projectId: 'descartetest',
-    authDomain: 'descartetest.firebaseapp.com',
-    storageBucket: 'descartetest.appspot.com',
+    apiKey: 'AIzaSyC2OevLJ0MEGtPmHg2k3qf-LzQLBQcY3uU',
+    appId: '1:93822977761:web:a4dd371d3c1c439dafd9a0',
+    messagingSenderId: '93822977761',
+    projectId: 'descarte-b78a4',
+    authDomain: 'descarte-b78a4.firebaseapp.com',
+    storageBucket: 'descarte-b78a4.appspot.com',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyD1RXFqO-iyFKmBFUgvKgqIaf8RhnQ8SVw',
-    appId: '1:103597176816:android:d98f59206cbbfc67328f35',
-    messagingSenderId: '103597176816',
-    projectId: 'descartetest',
-    storageBucket: 'descartetest.appspot.com',
+    apiKey: 'AIzaSyDlcV0-nh0i-N7HtJNO909c1VZftxJ2iZ0',
+    appId: '1:93822977761:android:000e7344428ca24fafd9a0',
+    messagingSenderId: '93822977761',
+    projectId: 'descarte-b78a4',
+    storageBucket: 'descarte-b78a4.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyBOHZ14YwM8ymG0xpoaUXMVpKo62c8LyWY',
-    appId: '1:103597176816:ios:3e83d9d2de788fbc328f35',
-    messagingSenderId: '103597176816',
-    projectId: 'descartetest',
-    storageBucket: 'descartetest.appspot.com',
+    apiKey: 'AIzaSyBk0TKX5Ut_HW1cT721KLEWHY_kD1W_VQU',
+    appId: '1:93822977761:ios:5491696a89012b55afd9a0',
+    messagingSenderId: '93822977761',
+    projectId: 'descarte-b78a4',
+    storageBucket: 'descarte-b78a4.appspot.com',
     iosBundleId: 'com.example.decarteBem',
   );
 }
