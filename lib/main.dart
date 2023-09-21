@@ -13,6 +13,7 @@ Future<void> main() async {
   runApp(const MyApp());
 }
 
+//Nao deixar linha com mais de 80 caracteres
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -22,10 +23,10 @@ class MyApp extends StatelessWidget {
       title: 'Sample',
       debugShowCheckedModeBanner: true,
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: const Color.fromARGB(201,209,242,255)),
+        colorScheme: ColorScheme.fromSeed(seedColor: const Color.fromARGB(255, 255, 255, 255)),
       ),
       getPages: Pages.pages,
-      initialRoute: Routes.LOGIN,
+      initialRoute: Routes.HOME,
     );
   }
 }

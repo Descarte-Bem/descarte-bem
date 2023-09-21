@@ -15,9 +15,13 @@ class HomePage extends StatelessWidget {
       init: Get.put(HomeController()),
       builder: (loginController) {
         return Scaffold(
+            backgroundColor: Color(0xFFD9D9D9),
           appBar: AppBar(
-            title: const Text('Home Page'),
+            title: const Text('Descarte Bem',
+            style: TextStyle(color: Color.fromARGB(230,88,90,91))),
             centerTitle: true,
+            backgroundColor: Colors.white,
+            elevation: 0,
             actions: [
               GetBuilder<LoginController>(
                 init: Get.put(LoginController()),
@@ -54,7 +58,7 @@ class HomePage extends StatelessWidget {
                             ),
                           ),
                           icon: const Icon(
-                            Icons.person_rounded, color: Colors.white,),
+                            Icons.person_rounded, color: Color.fromARGB(230,88,90,91),),
                         ),
                     )
                   );
