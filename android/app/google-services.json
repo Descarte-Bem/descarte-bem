@@ -1,37 +1,37 @@
 {
   "project_info": {
-    "project_number": "103597176816",
-    "project_id": "descartetest",
-    "storage_bucket": "descartetest.appspot.com"
+    "project_number": "93822977761",
+    "project_id": "descarte-b78a4",
+    "storage_bucket": "descarte-b78a4.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:103597176816:android:d98f59206cbbfc67328f35",
+        "mobilesdk_app_id": "1:93822977761:android:1b5cd9516c7bc90cafd9a0",
         "android_client_info": {
-          "package_name": "com.example.decarte_bem"
+          "package_name": "br.uff.descarte"
         }
       },
       "oauth_client": [
         {
-          "client_id": "103597176816-dqm0f9s74ib0aoonh1ar7bjk1cuqi3fl.apps.googleusercontent.com",
+          "client_id": "93822977761-t7kg04sk10v1uv9b7dnm67hd2asu2l62.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyD1RXFqO-iyFKmBFUgvKgqIaf8RhnQ8SVw"
+          "current_key": "AIzaSyDlcV0-nh0i-N7HtJNO909c1VZftxJ2iZ0"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "103597176816-dqm0f9s74ib0aoonh1ar7bjk1cuqi3fl.apps.googleusercontent.com",
+              "client_id": "93822977761-t7kg04sk10v1uv9b7dnm67hd2asu2l62.apps.googleusercontent.com",
               "client_type": 3
             },
             {
-              "client_id": "103597176816-opj1fi3ne1f552snmaes6j3m840ak4i3.apps.googleusercontent.com",
+              "client_id": "93822977761-bte7somnntud493m2usbesbbgaegurg3.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
                 "bundle_id": "com.example.decarteBem"
