@@ -1,4 +1,4 @@
-import 'package:decarte_bem/ui/widgets/login_button.dart';
+import 'package:decarte_bem/ui/widgets/circular_avatar_button.dart';
 import 'package:flutter/material.dart';
 
 // Itens do popMenuButton
@@ -17,7 +17,7 @@ class HomePage extends StatelessWidget {
         title: const Text("Home"),
         centerTitle: true,
         actions: const [
-          LoginButton()
+          CircularAvatarButton()
         ],
       ),
       body: const Center(
