@@ -90,6 +90,6 @@ class _CircularAvatarButtonState extends State<CircularAvatarButton> {
               Icons.person_rounded, color: Colors.white,),
           ),
         )
-    );;
+    );
   }
 }

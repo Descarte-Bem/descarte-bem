@@ -14,9 +14,13 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   void initState() {
-    if (auth.currentUser != null) {
-      Navigator.pushNamedAndRemoveUntil(context, '/home', (route) => false);
-    }
+    Future.delayed(Duration.zero, () {
+      if (auth.currentUser != null) {
+        debugPrint("Logado: ${auth.currentUser!.email}");
+        Navigator.pushNamedAndRemoveUntil(context, '/home', (route) => false);
+      }
+    });
+
     super.initState();
   }
 
