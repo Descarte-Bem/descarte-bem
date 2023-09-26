@@ -12,28 +12,46 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final auth = FirebaseAuth.instance;
 
-  @override
-  void initState() {
-    Future.delayed(Duration.zero, () {
-      if (auth.currentUser != null) {
-        debugPrint("Logado: ${auth.currentUser!.email}");
-        Navigator.pushNamedAndRemoveUntil(context, '/home', (route) => false);
-      }
-    });
-
-    super.initState();
+  Future<bool> checkUserLoggedIn() async {
+    return auth.currentUser != null;
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: const Text('Login'),
-          centerTitle: true,
-        ),
-        body: const Center(
-          child: LoginButton(),
-        )
+      appBar: AppBar(
+        title: const Text('Login Page'),
+        centerTitle: true,
+      ),
+      body: Column(
+        children: [
+          const SizedBox(
+            width: double.infinity,
+            child: Padding(
+              padding: EdgeInsets.all(10.0),
+              child: Placeholder(),
+            )),
+          FutureBuilder<bool>(
+            future: checkUserLoggedIn(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const Center(child: CircularProgressIndicator());
+              } else if (snapshot.hasError) {
+                return Center(child: Text('Error: ${snapshot.error}'));
+              } else if (snapshot.data == true) {
+                WidgetsBinding.instance.addPostFrameCallback((_) {
+                  Navigator.pushNamedAndRemoveUntil(context, '/home', (route) => false);
+                });
+                return Container();
+              } else {
+                return const Center(
+                  child: LoginButton(),
+                );
+              }
+            },
+          ),
+        ],
+      ),
     );
   }
 }
