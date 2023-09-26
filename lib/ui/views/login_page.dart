@@ -25,11 +25,11 @@ class _LoginPageState extends State<LoginPage> {
       ),
       body: Column(
         children: [
-          const SizedBox(
+          SizedBox(
             width: double.infinity,
             child: Padding(
-              padding: EdgeInsets.all(10.0),
-              child: Placeholder(),
+              padding: const EdgeInsets.all(10.0),
+              child: Image.asset('assets/comprimido.png'),
             )),
           FutureBuilder<bool>(
             future: checkUserLoggedIn(),
