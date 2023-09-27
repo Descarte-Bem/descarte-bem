@@ -20,7 +20,7 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Login Page'),
+        title: const Text('Descarte Bem'),
         centerTitle: true,
       ),
       body: Column(
@@ -29,7 +29,7 @@ class _LoginPageState extends State<LoginPage> {
             width: double.infinity,
             child: Padding(
               padding: const EdgeInsets.all(10.0),
-              child: Image.asset('assets/comprimido.png'),
+              child: Image.asset('assets/icon.png'),
             )),
           FutureBuilder<bool>(
             future: checkUserLoggedIn(),
