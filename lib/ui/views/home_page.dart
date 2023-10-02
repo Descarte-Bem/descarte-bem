@@ -34,9 +34,53 @@ class HomePage extends StatelessWidget {
           },
         ),
       ),
-      body: const Center(
-        child: Text("Home"),
-      ),
+      body: Container(
+        alignment: AlignmentDirectional.center,
+        child:  Column(
+          children: [
+             Stack(
+               alignment: AlignmentDirectional.topStart,
+               children: [
+               Container(
+                 margin: const EdgeInsets.only(top:24),
+                 height: 200,
+                 width: 350,
+                 decoration: BoxDecoration(
+                   color: Colors.white,
+                   borderRadius: BorderRadius.circular(20),
+                 ),
+              ),
+
+                 //Text(' ++++++++++++++++++++++++++++++++++++', textAlign: TextAlign.center,),
+               ],
+               ),
+
+            Image.asset('assets/medicine-bro.gif', height: 225,),
+            const Text('A preservação do meio ambiente começa com pequenas atitudes diárias.',
+              textAlign: TextAlign.center,),
+            const Text('Comece a descartar medicamentos de forma consciente agora mesmo!',
+              textAlign: TextAlign.center,),
+
+
+
+            //Botão para outra página
+            ElevatedButton(
+
+              onPressed: () { },
+
+              child: Text('Iniciar novo descarte'),
+            )
+
+          ],
+        ),
+
+      )
     );
   }
 }
+
+
+
+
+                 
+

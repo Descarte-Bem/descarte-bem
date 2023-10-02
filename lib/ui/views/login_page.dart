@@ -19,10 +19,10 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
+      /*appBar: AppBar(
         title: const Text('Descarte Bem'),
         centerTitle: true,
-      ),
+      ),*/
       body: Column(
         children: [
           SizedBox(
