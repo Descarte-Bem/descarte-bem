@@ -65,7 +65,7 @@ class HomePage extends StatelessWidget {
 
             Container(
               width: 360,
-              height: 80,
+              height: 85,
 
 
               //color: Colors.white,
@@ -130,7 +130,7 @@ class HomePage extends StatelessWidget {
 
 
 
-            
+
             //Botão para outra página
             ElevatedButton(
 
