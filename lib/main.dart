@@ -1,4 +1,5 @@
 import 'package:decarte_bem/firebase_options.dart';
+import 'package:decarte_bem/ui/views/descarte_page.dart';
 import 'package:decarte_bem/ui/views/home_page.dart';
 import 'package:decarte_bem/ui/views/login_page.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -29,6 +30,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/home': (context) => const HomePage(),
         '/login': (context) => const LoginPage(),
+        '/descarte': (context) => const DescartePage()
       },
     );
   }

@@ -2,9 +2,6 @@ import 'package:decarte_bem/ui/widgets/circular_avatar_button.dart';
 import 'package:flutter/material.dart';
 import 'dart:ui';
 
-// Itens do popMenuButton
-enum MenuItem { itemOne }
-
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
@@ -134,7 +131,7 @@ class HomePage extends StatelessWidget {
             //Botão para outra página
             ElevatedButton(
 
-              onPressed: () { },
+              onPressed: () {Navigator.pushNamed(context, '/descarte');},
 
               child: Text('Iniciar novo descarte'),
             )
