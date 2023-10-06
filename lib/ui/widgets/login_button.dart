@@ -1,5 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_signin_button/button_list.dart';
+import 'package:flutter_signin_button/button_view.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class LoginButton extends StatefulWidget {
@@ -56,9 +58,12 @@ class _LoginButtonState extends State<LoginButton> {
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
+    return SignInButton(
+      Buttons.GoogleDark,
       onPressed: signInWithGoogle,
-      child: const Text("Entrar com o Google"),
+      text: 'Entrar com o google',
+      padding: EdgeInsets.all(5),
+      elevation: 0.0,
     );
   }
 }
