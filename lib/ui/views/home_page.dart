@@ -161,7 +161,11 @@ class HomePage extends StatelessWidget {
             label: 'Mapa',
           ),
         ],
-        onTap: (int index) {},
+        onTap: (int index) {
+          if (index == 2) {
+            Navigator.pushNamed(context, '/map');
+          }
+        },
         selectedItemColor: Colors.black54,
       ),
     );
