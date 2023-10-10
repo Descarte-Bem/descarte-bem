@@ -42,107 +42,59 @@ class HomePage extends StatelessWidget {
         child:  Column(
 
             children: [
-             Stack(
-               alignment: AlignmentDirectional.topStart,
-               children: [
+
                Container(
-                 margin: const EdgeInsets.only(top:24),
+                 margin: const EdgeInsets.only(top:16),
                  height: 170,
                  width: 350,
                  decoration: BoxDecoration(
                    color: Colors.white,
                    borderRadius: BorderRadius.circular(5),
                  ),
-              ),
+                ),
 
-                 //Text(' ++++++++++++++++++++++++++++++++++++', textAlign: TextAlign.center,),
-               ],
-               ),
 
             Image.asset('assets/medicine-bro.gif', height: 250,),
 
 
 
-            Container(
-              width: 360,
-              height: 85,
-
-
-              //color: Colors.white,
-              child: const Column(
-                children: [
-
-
-                Text(
-                 'A preservação do meio ambiente começa com pequenas atitudes diárias.',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500,
-                    color: Colors.black54,
-                    letterSpacing: 1.3,
-                    ),
-                  ),
-                Text(
-                  'Comece a descartar medicamentos de forma consciente agora mesmo!',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
+            const SizedBox(
+              width: 350,
+              height: 40,
+                child: Text(
+                 'A preservação do meio ambiente começa com pequenas atitudes '
+                     'diárias.',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
                     fontSize: 16,
                     color: Colors.black54,
-                    ),
                   ),
-
-
-
-                ],
-
+                ),
+              ),
+              const SizedBox(
+                width: 350,
+                height: 40,
+                child: Text(
+                    'Comece a descartar medicamentos de forma consciente agora'
+                        ' mesmo!',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: Colors.black45,
+                  ),
+                ),
               ),
 
-            ),
-
-
-              /*Container(
-                color: Colors.blue,
-                width: 350.0,
-                height: 80.0,
-                child: const FittedBox(
-                fit: BoxFit.contain,
-
-                  child:  Text('A preservação do meio ambiente '
-                      'começa com pequenas atitudes diárias.',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 20, ),
-                 ),
-                 ),
-                ),*/
-
-            /*const Text(
-              'Comece a descartar medicamentos de forma consciente agora mesmo!',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.w500,
-                color: Colors.black45,
-
-              ),
-            ),*/
 
 
 
 
-            //Botão para outra página
-            ElevatedButton(
-
-              onPressed: () { },
-
-              child: Text('Iniciar novo descarte'),
-            )
-
-          ],
+            ],
+          ),
         ),
 
-      ),
+
+
       drawer: const Drawer(
         child: SafeArea(
             child: ListTile(
@@ -150,17 +102,19 @@ class HomePage extends StatelessWidget {
         )),
       ),
       bottomNavigationBar: BottomNavigationBar(
+
         items: const [
           BottomNavigationBarItem(
-              icon: Icon(Icons.home_outlined),
-              label: 'Inicio',
+              icon: Icon(Icons.info, size: 25,)
+              ,
+              label: 'Infomações',
           ),
           BottomNavigationBarItem(
-              icon: Icon(Icons.person_2_outlined),
-          label: 'Perfil',
+              icon: Icon(Icons.home, size: 25,),
+          label: 'Início',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.map_outlined),
+            icon: Icon(Icons.map_rounded, size: 25,),
             label: 'Mapa',
           ),
         ],
