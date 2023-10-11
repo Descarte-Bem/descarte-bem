@@ -10,30 +10,53 @@ class DescartePage extends StatefulWidget {
 }
 
 class _DescartePageState extends State<DescartePage> {
+  List<String> categories = [
+    'Solidos',
+    'Semi-Solidos',
+    'Liquidos',
+    'Perfuro-cortantes',
+  ];
+  List<String> material = [
+    'capsulas',
+    'drageas',
+    'comprimidos',
+    'supositorios',
+  ];
+  List<String> componente = [
+    'capsulas',
+    'drageas',
+    'comprimidos',
+    'supositorios',
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          backgroundColor: const Color(0xFFFFFFFF),
-          elevation: 0,
-          toolbarHeight: 70,
-          title: const Text("Descarte Bem"),
-          titleTextStyle: const TextStyle(color: Colors.black54, fontWeight: FontWeight.w400, fontSize: 22),
-          centerTitle: true,
-          actions: const [
-            CircularAvatarButton()
-          ],
-          leading: Builder(
-            builder: (BuildContext context) {
-              return IconButton(
-                icon: const Icon(Icons.menu_rounded, size: 30,),
-                color: Colors.black54,
-                onPressed: () { Scaffold.of(context).openDrawer(); },
-                tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
-              );
-            },
-          ),
+      appBar: AppBar(
+        backgroundColor: const Color(0xFFFFFFFF),
+        elevation: 0,
+        toolbarHeight: 70,
+        title: const Text("Descarte Bem"),
+        titleTextStyle: const TextStyle(
+            color: Colors.black54, fontWeight: FontWeight.w400, fontSize: 22),
+        centerTitle: true,
+        actions: const [CircularAvatarButton()],
+        leading: Builder(
+          builder: (BuildContext context) {
+            return IconButton(
+              icon: const Icon(
+                Icons.menu_rounded,
+                size: 30,
+              ),
+              color: Colors.black54,
+              onPressed: () {
+                Scaffold.of(context).openDrawer();
+              },
+              tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
+            );
+          },
         ),
+      ),
       backgroundColor: const Color(0xFFD9D9D9),
       body: Container(
         alignment: Alignment.center,
@@ -58,7 +81,8 @@ class _DescartePageState extends State<DescartePage> {
               ),
             ),
             Padding(
-              padding: EdgeInsets.only(bottom: MediaQuery.of(context).size.height/15),
+              padding: EdgeInsets.only(
+                  bottom: MediaQuery.of(context).size.height / 15),
               child: Container(
                 alignment: Alignment.bottomLeft,
                 child: Row(
@@ -67,15 +91,68 @@ class _DescartePageState extends State<DescartePage> {
                     Padding(
                       padding: const EdgeInsets.only(left: 30),
                       child: ElevatedButton(
-                        onPressed: () {},
-                        child: const Text('+'),
+                        onPressed: () {
+                          // Show a bottom sheet with the list of disposal materials
+                          showModalBottomSheet(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return Container(
+                                child: ListView.builder(
+                                  itemCount: categories.length,
+                                  itemBuilder:
+                                      (BuildContext context, int index) {
+                                    return ListTile(
+                                      title: Text(categories[index]),
+                                      onTap: () {
+                                        showModalBottomSheet(
+                                          context: context,
+                                          builder: (BuildContext context) {
+                                            return Container(
+                                              child: ListView.builder(
+                                                itemCount: material.length,
+                                                itemBuilder:
+                                                    (BuildContext context,
+                                                        int index) {
+                                                  return ListTile(
+                                                    title:
+                                                        Text(material[index]),
+                                                    onTap: () {
+                                                      Navigator.pop(
+                                                          context); // Close
+                                                    },
+                                                  );
+                                                },
+                                              ),
+                                            );
+                                          },
+                                        );
+
+                                        Navigator.pop(
+                                            context); // Close the bottom sheet
+                                      },
+                                    );
+                                  },
+                                ),
+                              );
+                            },
+                          );
+                        },
+                        child: const Icon(
+                          Icons.add,
+                          color: Colors.white,
+                          size: 50.0,
+                        ),
                       ),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(right: 30),
                       child: ElevatedButton(
                         onPressed: () {},
-                        child: const Text('-'),
+                        child: const Icon(
+                          Icons.check,
+                          color: Colors.white,
+                          size: 50.0,
+                        ),
                       ),
                     )
                   ],
@@ -88,8 +165,8 @@ class _DescartePageState extends State<DescartePage> {
       drawer: const Drawer(
         child: SafeArea(
             child: ListTile(
-              title: Text('Menu Lateral'),
-            )),
+          title: Text('Menu Lateral'),
+        )),
       ),
       bottomNavigationBar: BottomNavigationBar(
         items: const [
