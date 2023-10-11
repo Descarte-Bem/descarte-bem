@@ -34,6 +34,7 @@ migrate_working_dir/
 
 # Symbolication related
 app.*.symbols
+*.jks
 
 # Obfuscation related
 app.*.map.json
