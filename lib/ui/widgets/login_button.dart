@@ -1,6 +1,7 @@
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:decarte_bem/services/google_sign_in.dart';
 import 'package:flutter/material.dart';
-import 'package:google_sign_in/google_sign_in.dart';
+import 'package:flutter_signin_button/button_list.dart';
+import 'package:flutter_signin_button/button_view.dart';
 
 class LoginButton extends StatefulWidget {
   const LoginButton({super.key});
@@ -10,55 +11,22 @@ class LoginButton extends StatefulWidget {
 }
 
 class _LoginButtonState extends State<LoginButton> {
+  late GoogleSignInHandler _googleSignInHandler;
 
-  final auth = FirebaseAuth.instance;
-  final GoogleSignIn googleSignIn = GoogleSignIn();
-  UserCredential? userCredential;
-  bool isLogged = false;
-
-  Future<void> signInWithGoogle() async {
-    if (auth.currentUser != null) {
-      try {
-        await auth.signOut();
-        await googleSignIn.signOut();
-        setState(() {
-          isLogged = false;
-        });
-        debugPrint('Deslogado');
-        Navigator.pushNamedAndRemoveUntil(context, '/login', (route) => false);
-      } catch(e) {
-        debugPrint("ERRO DESLOGANDO: $e");
-      }
-    } else {
-      try {
-        // Trigger the authentication flow
-        final GoogleSignInAccount? googleUser = await googleSignIn.signIn();
-
-        // Obtain the auth details from the request
-        final GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
-
-        // Create a new credential
-        final credential = GoogleAuthProvider.credential(
-          accessToken: googleAuth?.accessToken,
-          idToken: googleAuth?.idToken,
-        );
-        userCredential = await auth.signInWithCredential(credential);
-        setState(() {
-          isLogged = true;
-        });
-        Navigator.pushNamedAndRemoveUntil(context, '/home', (route) => false);
-        debugPrint('Logado: ${userCredential!.user!.email}');
-      } catch(e) {
-        debugPrint("ERRO LOGANDO: $e");
-      }
-    }
+  @override
+  void initState() {
+    super.initState();
+    _googleSignInHandler = GoogleSignInHandler(context);
   }
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
-      onPressed: signInWithGoogle,
-      child: const Text("Entrar com o Google"),
+    return SignInButton(
+      Buttons.GoogleDark,
+      onPressed: _googleSignInHandler.signInWithGoogle,
+      text: 'Entrar com o google',
+      padding: const EdgeInsets.all(5),
+      elevation: 0.0,
     );
   }
 }

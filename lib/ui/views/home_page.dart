@@ -1,15 +1,20 @@
 import 'package:decarte_bem/ui/widgets/circular_avatar_button.dart';
 import 'package:flutter/material.dart';
-import 'dart:ui';
 
-// Itens do popMenuButton
-enum MenuItem { itemOne }
-
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
   @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  @override
   Widget build(BuildContext context) {
+
+    var  wid = MediaQuery.of(context).size.width;
+    var hei = MediaQuery.of(context).size.height;
+
     return Scaffold(
       backgroundColor: const Color(0xFFD9D9D9),
       appBar: AppBar(
@@ -17,7 +22,11 @@ class HomePage extends StatelessWidget {
         elevation: 0,
         toolbarHeight: 70,
         title: const Text("Descarte Bem"),
-        titleTextStyle: const TextStyle(color: Colors.black54, fontWeight: FontWeight.w400, fontSize: 22),
+        titleTextStyle: const TextStyle(
+            color: Colors.black54,
+            fontWeight: FontWeight.w400,
+            fontSize: 22
+        ),
         centerTitle: true,
 
         actions: const [
@@ -51,6 +60,13 @@ class HomePage extends StatelessWidget {
                    color: Colors.white,
                    borderRadius: BorderRadius.circular(5),
                  ),
+
+                 /*child: const SizedBox(
+                   width: 350,
+                   height: 40, )*/
+
+
+
                 ),
 
 
@@ -85,13 +101,17 @@ class HomePage extends StatelessWidget {
                 ),
               ),
 
+              ElevatedButton(
 
+                onPressed: () {Navigator.pushNamed(context, '/descarte');},
 
-
-
-            ],
+                child: const Text('Iniciar novo descarte'),
+              ),
+            ], //children
           ),
         ),
+
+
 
 
 
@@ -118,9 +138,15 @@ class HomePage extends StatelessWidget {
             label: 'Mapa',
           ),
         ],
-        onTap: (int index) {},
+        onTap: (int index) {
+          if (index == 2) {
+            Navigator.pushNamed(context, '/map');
+          }
+        },
         selectedItemColor: Colors.black54,
+
       ),
+
     );
   }
 }
