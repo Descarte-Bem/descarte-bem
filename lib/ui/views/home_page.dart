@@ -32,26 +32,27 @@ class _HomePageState extends State<HomePage> {
         actions: const [
           CircularAvatarButton()
         ],
-        leading: Builder(
-          builder: (BuildContext context) {
-            return IconButton(
-              icon: const Icon(Icons.menu_rounded, size: 30,),
-              color: Colors.black54,
-              onPressed: () { Scaffold.of(context).openDrawer(); },
+
+           // Parte esquerda da APPBar
+           /*leading: Builder(
+            builder: (BuildContext context) {
+              return IconButton(
+                 icon: const Icon(Icons.menu_rounded, size: 30,),
+                  color: Colors.black54,
+                  onPressed: () { Scaffold.of(context).openDrawer(); },
               tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
-            );
-          },
-        ),
-      ),
+               );
+              },*/
+            ),
+
 
 
         body: Container(
           alignment: AlignmentDirectional.center,
-
         child:  Column(
+          children: [
 
-            children: [
-
+              //Caixa Branca
                Container(
                  margin: const EdgeInsets.only(top:16),
                  height: 170,
@@ -60,20 +61,44 @@ class _HomePageState extends State<HomePage> {
                    color: Colors.white,
                    borderRadius: BorderRadius.circular(5),
                  ),
+                 child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                     children: [
+                       const Text('Bem-vindo, Nome!', style: TextStyle(
+                          fontSize: 20,
+                         color: Colors.black45
+                        ),
+                       ),
 
-                 /*child: const SizedBox(
-                   width: 350,
-                   height: 40, )*/
+                       Container(
+                         height: 20,
+                         width: 300,
+                         decoration: BoxDecoration(
+                           color: Colors.black12,
+                           borderRadius: BorderRadius.circular(5),
+                         ),
+                       ),
+                       Container(
+                         height: 20,
+                         width: 300,
+                         decoration: BoxDecoration(
+                           color: Colors.black12,
+                           borderRadius: BorderRadius.circular(5),
+                         ),
+                       ),
+                     ]
+
+                 )
 
 
 
                 ),
 
-
+            //Imagem
             Image.asset('assets/medicine-bro.gif', height: 250,),
 
 
-
+            //Textinho 1 "A preservaçao..."
             const SizedBox(
               width: 350,
               height: 40,
@@ -87,6 +112,8 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
               ),
+
+              //Textinho 2 "Comece a descartar..."
               const SizedBox(
                 width: 350,
                 height: 40,
@@ -101,11 +128,22 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
 
-              ElevatedButton(
+
+              //Botão Descarte
+              Container(
+                margin: const EdgeInsets.only(top:10),
+              child: ElevatedButton(
+
+                style: const ButtonStyle(
+                  backgroundColor: MaterialStatePropertyAll<Color>(Colors.blueGrey),
+
+
+                ),
 
                 onPressed: () {Navigator.pushNamed(context, '/descarte');},
 
                 child: const Text('Iniciar novo descarte'),
+                ),
               ),
             ], //children
           ),
@@ -113,14 +151,16 @@ class _HomePageState extends State<HomePage> {
 
 
 
-
-
-      drawer: const Drawer(
+     //Abetura do menu lateral
+     /* drawer: const Drawer(
         child: SafeArea(
             child: ListTile(
               title: Text('Menu Lateral'),
         )),
-      ),
+      ),*/
+
+
+
       bottomNavigationBar: BottomNavigationBar(
 
         items: const [
@@ -139,11 +179,20 @@ class _HomePageState extends State<HomePage> {
           ),
         ],
         onTap: (int index) {
+          if (index == 0) {
+            Navigator.pushNamed(context, '/info');
+          }
+          if (index == 1) {
+            Navigator.pushNamed(context, '/home');
+          }
           if (index == 2) {
             Navigator.pushNamed(context, '/map');
           }
+
         },
-        selectedItemColor: Colors.black54,
+          selectedItemColor: Colors.black45,
+
+
 
       ),
 
