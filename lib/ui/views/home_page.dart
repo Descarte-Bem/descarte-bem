@@ -12,7 +12,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
 
-    var  wid = MediaQuery.of(context).size.width;
+    var wid = MediaQuery.of(context).size.width;
     var hei = MediaQuery.of(context).size.height;
 
     return Scaffold(
@@ -32,16 +32,6 @@ class _HomePageState extends State<HomePage> {
         actions: const [
           CircularAvatarButton()
         ],
-        leading: Builder(
-          builder: (BuildContext context) {
-            return IconButton(
-              icon: const Icon(Icons.menu_rounded, size: 30,),
-              color: Colors.black54,
-              onPressed: () { Scaffold.of(context).openDrawer(); },
-              tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
-            );
-          },
-        ),
       ),
 
 
@@ -53,6 +43,7 @@ class _HomePageState extends State<HomePage> {
             children: [
 
                Container(
+                 child: Center(child: Text('Faça um novo descarte!', style: TextStyle(fontSize: 20),)),
                  margin: const EdgeInsets.only(top:16),
                  height: 170,
                  width: 350,
@@ -115,23 +106,17 @@ class _HomePageState extends State<HomePage> {
 
 
 
-      drawer: const Drawer(
-        child: SafeArea(
-            child: ListTile(
-              title: Text('Menu Lateral'),
-        )),
-      ),
+
       bottomNavigationBar: BottomNavigationBar(
 
         items: const [
           BottomNavigationBarItem(
-              icon: Icon(Icons.info, size: 25,)
-              ,
-              label: 'Infomações',
+            icon: Icon(Icons.info, size: 25,),
+            label: 'Infomações',
           ),
           BottomNavigationBarItem(
-              icon: Icon(Icons.home, size: 25,),
-          label: 'Início',
+            icon: Icon(Icons.home, size: 25,),
+            label: 'Início',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.map_rounded, size: 25,),
