@@ -33,16 +33,6 @@ class _MapPageState extends State<MapPage> with TickerProviderStateMixin {
         actions: const [
           CircularAvatarButton()
         ],
-        leading: Builder(
-          builder: (BuildContext context) {
-            return IconButton(
-              icon: const Icon(Icons.menu_rounded, size: 30,),
-              color: Colors.black54,
-              onPressed: () { Scaffold.of(context).openDrawer(); },
-              tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
-            );
-          },
-        ),
       ),
       backgroundColor: const Color(0xFFD9D9D9),
       body: FlutterMap(
@@ -85,22 +75,28 @@ class _MapPageState extends State<MapPage> with TickerProviderStateMixin {
             )),
       ),
       bottomNavigationBar: BottomNavigationBar(
+
         items: const [
           BottomNavigationBarItem(
-            icon: Icon(Icons.home_outlined),
-            label: 'Inicio',
+            icon: Icon(Icons.info, size: 25,),
+            label: 'Infomações',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.person_2_outlined),
-            label: 'Perfil',
+            icon: Icon(Icons.home, size: 25,),
+            label: 'Início',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.map_outlined),
+            icon: Icon(Icons.map_rounded, size: 25,),
             label: 'Mapa',
           ),
         ],
-        onTap: (int index) {},
+        onTap: (int index) {
+          if (index == 1) {
+            Navigator.pop(context);
+          }
+        },
         selectedItemColor: Colors.black54,
+
       ),
     );
   }

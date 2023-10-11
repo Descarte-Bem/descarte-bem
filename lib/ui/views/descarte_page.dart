@@ -41,21 +41,6 @@ class _DescartePageState extends State<DescartePage> {
             color: Colors.black54, fontWeight: FontWeight.w400, fontSize: 22),
         centerTitle: true,
         actions: const [CircularAvatarButton()],
-        leading: Builder(
-          builder: (BuildContext context) {
-            return IconButton(
-              icon: const Icon(
-                Icons.menu_rounded,
-                size: 30,
-              ),
-              color: Colors.black54,
-              onPressed: () {
-                Scaffold.of(context).openDrawer();
-              },
-              tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
-            );
-          },
-        ),
       ),
       backgroundColor: const Color(0xFFD9D9D9),
       body: Container(
@@ -162,33 +147,32 @@ class _DescartePageState extends State<DescartePage> {
           ],
         ),
       ),
-      drawer: const Drawer(
-        child: SafeArea(
-            child: ListTile(
-          title: Text('Menu Lateral'),
-        )),
-      ),
       bottomNavigationBar: BottomNavigationBar(
+
         items: const [
           BottomNavigationBarItem(
-            icon: Icon(Icons.home_outlined),
-            label: 'Inicio',
+            icon: Icon(Icons.info, size: 25,),
+            label: 'Infomações',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.person_2_outlined),
-            label: 'Perfil',
+            icon: Icon(Icons.home, size: 25,),
+            label: 'Início',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.map_outlined),
+            icon: Icon(Icons.map_rounded, size: 25,),
             label: 'Mapa',
           ),
         ],
         onTap: (int index) {
+          if (index == 1) {
+            Navigator.pop(context);
+          }
           if (index == 2) {
-            Navigator.pushNamed(context, '/map');
+            Navigator.popAndPushNamed(context, '/map');
           }
         },
         selectedItemColor: Colors.black54,
+
       ),
     );
   }
