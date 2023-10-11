@@ -10,6 +10,21 @@ class DescartePage extends StatefulWidget {
 }
 
 class _DescartePageState extends State<DescartePage> {
+  List<String> categories = [
+    'Solidos',
+    'Semi-Solidos',
+    'Liquidos',
+    'Perfuro-cortantes',
+
+  ];
+  List<String> material = [
+    'capsulas',
+    'drageas',
+    'comprimidos',
+    'supositorios',
+
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -58,7 +73,7 @@ class _DescartePageState extends State<DescartePage> {
               ),
             ),
             Padding(
-              padding: EdgeInsets.only(bottom: MediaQuery.of(context).size.height/15),
+              padding: EdgeInsets.only(bottom: MediaQuery.of(context).size.height / 15),
               child: Container(
                 alignment: Alignment.bottomLeft,
                 child: Row(
@@ -67,7 +82,49 @@ class _DescartePageState extends State<DescartePage> {
                     Padding(
                       padding: const EdgeInsets.only(left: 30),
                       child: ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          // Show a bottom sheet with the list of disposal materials
+                          showModalBottomSheet(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return Container(
+                                child: ListView.builder(
+                                  itemCount: categories.length,
+                                  itemBuilder: (BuildContext context, int index) {
+                                    return ListTile(
+                                      title: Text(categories[index]),
+                                      onTap: () {
+                                        showModalBottomSheet(
+                                          context: context,
+                                          builder: (BuildContext context) {
+                                            return Container(
+                                              child: ListView.builder(
+                                                itemCount: material.length,
+                                                itemBuilder: (BuildContext context, int index) {
+                                                  return ListTile(
+                                                    title: Text(material[index]),
+                                                    onTap: () {
+
+                                                      Navigator.pop(context); // Close
+                                                    },
+                                                  );
+                                                },
+                                              ),
+                                            );
+                                          },
+                                        );
+                                        // Handle material selection if needed
+                                        // For example, you can navigate to a new screen
+                                        // or perform some action based on the selected material.
+                                        Navigator.pop(context); // Close the bottom sheet
+                                      },
+                                    );
+                                  },
+                                ),
+                              );
+                            },
+                          );
+                        },
                         child: const Text('+'),
                       ),
                     ),
