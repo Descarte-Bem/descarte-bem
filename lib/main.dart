@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: const Color.fromARGB(255, 255, 255, 255)),
       ),
-      home: const LoginPage(),
+      home: const HomePage(),
       routes: {
         '/home': (context) => const HomePage(),
         '/login': (context) => const LoginPage(),
