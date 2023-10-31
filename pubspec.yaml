@@ -28,6 +28,7 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  qr_flutter: ^4.1.0
   flutter:
     sdk: flutter
 
@@ -46,6 +47,8 @@ dependencies:
   flutter_map_animations: ^0.4.1
   geolocator: ^10.1.0
   flutter_svg: ^2.0.8
+  screenshot: ^2.1.0
+  qr_code_scanner: ^1.0.1
 
 dev_dependencies:
   flutter_test:
