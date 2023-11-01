@@ -122,16 +122,19 @@ class _HomePageState extends State<HomePage> {
 
 
 
-      body: Container(
-        alignment: AlignmentDirectional.center,
+      body: Center(
+
+      //color: Colors.amber,
 
         child:  Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+
 
           children: [
 
             Container(
-              margin: const EdgeInsets.only(top:16),
-              height: hei * 0.2,
+              margin: const EdgeInsets.only(top:8),
+              height: hei * 0.15,
               width: wid * 0.9,
               decoration: BoxDecoration(
                 color: Colors.white,
@@ -152,59 +155,70 @@ class _HomePageState extends State<HomePage> {
             ),
 
 
-            Image.asset('assets/medicine-bro.gif', height: hei * 0.3,),
+            Image.asset('assets/medicine-bro.gif', height: hei * 0.3,
+            ),
 
 
 
             Container(
               width: MediaQuery.of(context).size.width * 0.8,
-              height: MediaQuery.of(context).size.height * 0.050,
+              //height: MediaQuery.of(context).size.height * 0.070,
               decoration: const BoxDecoration(
                 //color: Colors.pink,
               ),
 
-              child: const Center(
-                child: Text('A preservação do meio ambiente começa com pequenas atitudes '
-                    'diárias.',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: Colors.black54,
-                    fontWeight: FontWeight.w500,
+              child: const Column(
+
+                children: [
+                  Text('A preservação do meio ambiente começa com pequenas atitudes '
+                      'diárias.',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: Colors.black45,
+                      fontWeight: FontWeight.w600,
+                    ),
+
+
                   ),
-                ),
+                  Text('Comece a descartar medicamentos de forma consciente agora mesmo',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: Colors.black45,
+                      fontWeight: FontWeight.w800,
+                    ),
+
+
+                  )
+                ],
+
               ),
+
             ),
 
 
-            Container(
-              width: MediaQuery.of(context).size.width * 0.8,
-              height: MediaQuery.of(context).size.height * 0.050,
-              decoration: const BoxDecoration(
-                //color: Colors.pink,
-              ),
-
-              child: const Center(
-                child: Text('Comece a descartar medicamentos de forma consciente agora '
-                    'mesmo',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: Colors.black54,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
-              ),
-            ),
 
 
-            Padding(padding: const EdgeInsets.only(top: 15),
-              child: ElevatedButton(
+             ElevatedButton(
+                /*style: const ButtonStyle(
+
+                ),*/
                 onPressed: () {Navigator.pushNamed(context, '/descarte');},
 
                   child: const Text('Iniciar novo descarte'),
+
               ),
+
+
+            TextButton(onPressed: () {Navigator.pushNamed(context, '/descarte');},
+                child: const Text(
+                    'Veja seu histórico de descarte aqui.'
+                )
             ),
+
+
+
 
           ], //children
         ),
