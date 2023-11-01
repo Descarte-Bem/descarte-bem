@@ -12,4 +12,10 @@ class FarmaciaModel{
     nome = data['nome'];
     localizacao = data['localizacao'];
   }
+
+  FarmaciaModel.fromJson(this.id ,Map<String, dynamic> json) {
+    nome = json['nome'];
+  }
+
+
 }

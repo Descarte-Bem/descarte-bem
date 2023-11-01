@@ -121,6 +121,14 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       backgroundColor: const Color(0xFFD9D9D9),
       appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(Icons.restart_alt, color: Colors.grey,),
+          onPressed: (){
+            getPendingDiscard();
+            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                content: Text("Página atualizada!")));
+          },
+        ),
         backgroundColor: const Color(0xFFFFFFFF),
         elevation: 0,
         toolbarHeight: 70,
@@ -191,6 +199,7 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
             ),
+            pendingDiscard == null ?
             ElevatedButton(
               onPressed: () async {
                 await getPendingDiscard();
@@ -202,12 +211,19 @@ class _HomePageState extends State<HomePage> {
                 }
               },
               child: const Text('Iniciar novo descarte'),
-            ),
+            ) :
             ElevatedButton(
               onPressed: () async {
-                Navigator.pushNamed(context, '/qrcodescan');
+                await getPendingDiscard();
+                if (pendingDiscard == null){
+                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                      content: Text("Você já realizou o descarte!")));
+                  }
+                else {
+                  Navigator.pushNamed(context, '/qrcodescan');
+                }
               },
-              child: const Text('QRCODE'),
+              child: const Text('Efetuar descarte'),
             )
           ], //children
         ),
