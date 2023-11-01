@@ -118,79 +118,93 @@ class _HomePageState extends State<HomePage> {
           CircularAvatarButton()
         ],
       ),
+
+
+
       body: Container(
         alignment: AlignmentDirectional.center,
 
-      child:  Column(
+        child:  Column(
 
           children: [
 
-             Container(
-               margin: const EdgeInsets.only(top:16),
-               height: 170,
-               width: 350,
-               decoration: BoxDecoration(
-                 color: Colors.white,
-                 borderRadius: BorderRadius.circular(5),
-               ),
-               child: Center(child: pendingDiscard == null ?
-                  Text('Faça um novo descarte!', style: TextStyle(
-                    fontSize: 20,
-                    color: Colors.teal.shade900
-                  ),):
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text('Você possui um descarte pendente:', style: TextStyle(
-                        fontSize: 20,
-                        color: Colors.teal.shade900
-                      ),),
-                      disCard(pendingDiscard!),
-                    ],
-                  )
-               ),
+            Container(
+              margin: const EdgeInsets.only(top:16),
+              height: hei * 0.2,
+              width: wid * 0.9,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(5),
+
               ),
+              child: const Padding(padding: EdgeInsets.all(15),
 
-          Image.asset('assets/medicine-bro.gif', height: 250,),
-
-          const SizedBox(
-            width: 350,
-            height: 40,
-              child: Text(
-               'A preservação do meio ambiente começa com pequenas atitudes '
-                   'diárias.',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 16,
-                  color: Colors.black54,
+                child: Text(
+                  'Bem-vindo, Nome!',
+                  style: TextStyle(fontSize: 20,
+                    color: Colors.black54,
+                    fontWeight: FontWeight.w400,
+                  ),
                 ),
+
               ),
             ),
-            const SizedBox(
-              width: 350,
-              height: 40,
-              child: Text(
-                  'Comece a descartar medicamentos de forma consciente agora'
-                      ' mesmo!',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 16,
-                  color: Colors.black45,
+
+
+            Image.asset('assets/medicine-bro.gif', height: hei * 0.3,),
+
+
+
+            Container(
+              width: MediaQuery.of(context).size.width * 0.8,
+              height: MediaQuery.of(context).size.height * 0.050,
+              decoration: const BoxDecoration(
+                //color: Colors.pink,
+              ),
+
+              child: const Center(
+                child: Text('A preservação do meio ambiente começa com pequenas atitudes '
+                    'diárias.',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: Colors.black54,
+                    fontWeight: FontWeight.w500,
+                  ),
                 ),
               ),
             ),
 
-            ElevatedButton(
-              onPressed: () async {
-                await getPendingDiscard();
-                if (pendingDiscard == null) {
-                  Navigator.pushNamed(context, '/descarte');
-                } else {
-                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Você possui um descarte pendente")));
-                }
-              },
-              child: const Text('Iniciar novo descarte'),
+
+            Container(
+              width: MediaQuery.of(context).size.width * 0.8,
+              height: MediaQuery.of(context).size.height * 0.050,
+              decoration: const BoxDecoration(
+                //color: Colors.pink,
+              ),
+
+              child: const Center(
+                child: Text('Comece a descartar medicamentos de forma consciente agora '
+                    'mesmo',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: Colors.black54,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+              ),
             ),
+
+
+            Padding(padding: const EdgeInsets.only(top: 15),
+              child: ElevatedButton(
+                onPressed: () {Navigator.pushNamed(context, '/descarte');},
+
+                child: const Text('Iniciar novo descarte'),
+              ),
+            ),
+
           ], //children
         ),
       ),
