@@ -1,3 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:decarte_bem/ui/views/add_descarte_page.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../widgets/circular_avatar_button.dart';
@@ -10,24 +13,70 @@ class DescartePage extends StatefulWidget {
 }
 
 class _DescartePageState extends State<DescartePage> {
-  List<String> categories = [
-    'Solidos',
-    'Semi-Solidos',
-    'Liquidos',
-    'Perfuro-cortantes',
-  ];
-  List<String> material = [
-    'capsulas',
-    'drageas',
-    'comprimidos',
-    'supositorios',
-  ];
-  List<String> componente = [
-    'capsulas',
-    'drageas',
-    'comprimidos',
-    'supositorios',
-  ];
+  adicionaMaterial(String categoria, String subcategoria, int quantidade){
+    Map<String, dynamic> descarte = {
+      "categoria": categoria,
+      "subcategoria": subcategoria,
+      "quantidade": quantidade
+    };
+    setState(() {
+      novoDescarte["descarte"].add(descarte);
+    });
+  }
+
+  Map<String, dynamic> novoDescarte = {
+    "usuario": FirebaseAuth.instance.currentUser!.uid,
+    "farmacia": null,
+    "descarte": []
+  };
+
+  Widget customCard(String title, String subtitle, int number, Function delete){
+    return Container(
+      padding: EdgeInsets.all(MediaQuery.of(context).size.height/65),
+      height: MediaQuery.of(context).size.height/15,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(15),
+        color: Colors.white,
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Text(
+            title == '' ? subtitle[0].toUpperCase()+subtitle.substring(1):
+            title[0].toUpperCase()+title.substring(1),
+            style: TextStyle(
+                fontSize: MediaQuery.of(context).size.width/20
+            ),
+          ),
+          Text(
+            title == '' ? '':
+            subtitle[0].toUpperCase()+subtitle.substring(1),
+            style: TextStyle(
+                fontSize: MediaQuery.of(context).size.width/30
+            ),
+          ),
+          Text(
+            number.toString()+' unidade(s)',
+            style: TextStyle(
+                fontSize: MediaQuery.of(context).size.width/30
+            ),
+          ),
+          IconButton(
+            onPressed: (){
+              setState(() {
+                delete();
+              });
+            },
+            icon: Icon(
+              Icons.delete,
+              color: Colors.red.shade800,
+            ),
+          )
+        ],
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -54,17 +103,32 @@ class _DescartePageState extends State<DescartePage> {
               height: 100,
               width: 350,
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: Colors.brown[400],
                 borderRadius: BorderRadius.circular(20),
               ),
               child: const Text(
                 "Materiais para descarte",
                 style: TextStyle(
+                  color: Colors.white,
                   fontSize: 24,
                 ),
                 textAlign: TextAlign.center,
               ),
             ),
+            Expanded(child: ListView.builder(
+              itemCount: novoDescarte["descarte"].length,
+              itemBuilder: (context, index){
+                return Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: customCard(
+                    novoDescarte["descarte"][index]["subcategoria"],
+                    novoDescarte["descarte"][index]["categoria"],
+                    novoDescarte["descarte"][index]["quantidade"],
+                    () => novoDescarte["descarte"].remove(novoDescarte["descarte"][index])
+                  ),
+                );
+              }
+            )),
             Padding(
               padding: EdgeInsets.only(
                   bottom: MediaQuery.of(context).size.height / 15),
@@ -77,49 +141,11 @@ class _DescartePageState extends State<DescartePage> {
                       padding: const EdgeInsets.only(left: 30),
                       child: ElevatedButton(
                         onPressed: () {
-                          // Show a bottom sheet with the list of disposal materials
-                          showModalBottomSheet(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return Container(
-                                child: ListView.builder(
-                                  itemCount: categories.length,
-                                  itemBuilder:
-                                      (BuildContext context, int index) {
-                                    return ListTile(
-                                      title: Text(categories[index]),
-                                      onTap: () {
-                                        showModalBottomSheet(
-                                          context: context,
-                                          builder: (BuildContext context) {
-                                            return Container(
-                                              child: ListView.builder(
-                                                itemCount: material.length,
-                                                itemBuilder:
-                                                    (BuildContext context,
-                                                        int index) {
-                                                  return ListTile(
-                                                    title:
-                                                        Text(material[index]),
-                                                    onTap: () {
-                                                      Navigator.pop(
-                                                          context); // Close
-                                                    },
-                                                  );
-                                                },
-                                              ),
-                                            );
-                                          },
-                                        );
-
-                                        Navigator.pop(
-                                            context); // Close the bottom sheet
-                                      },
-                                    );
-                                  },
-                                ),
-                              );
-                            },
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => AddDescartePage(
+                              addDescarte: adicionaMaterial,
+                            ))
                           );
                         },
                         child: const Icon(
@@ -132,7 +158,17 @@ class _DescartePageState extends State<DescartePage> {
                     Padding(
                       padding: const EdgeInsets.only(right: 30),
                       child: ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () async {
+                          if(novoDescarte["descarte"].isNotEmpty){
+                            await FirebaseFirestore.instance
+                                .collection('descartes')
+                                .add(novoDescarte);
+                            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Descarte adicionado com sucesso")));
+                            Navigator.pop(context);
+                          } else {
+                            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Adicione um novo material primeiro")));
+                          }
+                        },
                         child: const Icon(
                           Icons.check,
                           color: Colors.white,
