@@ -139,14 +139,15 @@ class _HomePageState extends State<HomePage> {
         centerTitle: true,
         actions: const [CircularAvatarButton()],
       ),
-      body: Container(
-        alignment: AlignmentDirectional.center,
+      body: Center(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+
           children: [
             Container(
-              margin: const EdgeInsets.only(top: 16),
-              height: 170,
-              width: 350,
+              margin: const EdgeInsets.only(top: 8),
+              height: hei * 0.18,
+              width: wid * 0.9,
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(5),
@@ -172,35 +173,46 @@ class _HomePageState extends State<HomePage> {
             ),
             Image.asset(
               'assets/medicine-bro.gif',
-              height: 250,
+              height: hei * 0.3,
             ),
-            const SizedBox(
-              width: 350,
-              height: 40,
-              child: Text(
-                'A preservação do meio ambiente começa com pequenas atitudes '
-                'diárias.',
+
+          Container(
+            width: MediaQuery.of(context).size.width * 0.8,
+             //height: MediaQuery.of(context).size.height * 0.070,
+              decoration: const BoxDecoration(
+               //color: Colors.pink,
+            ),
+
+            child: const Column(
+
+              children: [
+                  Text('A preservação do meio ambiente começa com pequenas atitudes '
+                    'diárias.',
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  fontSize: 16,
-                  color: Colors.black54,
+                fontSize: 16,
+                color: Colors.black45,
+                fontWeight: FontWeight.w600,
                 ),
-              ),
             ),
-            const SizedBox(
-              width: 350,
-              height: 40,
-              child: Text(
-                'Comece a descartar medicamentos de forma consciente agora'
-                ' mesmo!',
+                  Text('Comece a descartar medicamentos de forma consciente agora mesmo',
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  fontSize: 16,
-                  color: Colors.black45,
-                ),
-              ),
+                fontSize: 16,
+                color: Colors.black45,
+                fontWeight: FontWeight.w800,
+                    ),
+                  ),
+              ],
             ),
-            pendingDiscard == null ?
+          ),
+
+
+
+
+
+
+          pendingDiscard == null ?
             ElevatedButton(
               onPressed: () async {
                 await getPendingDiscard();
@@ -225,7 +237,13 @@ class _HomePageState extends State<HomePage> {
                 }
               },
               child: const Text('Efetuar descarte'),
-            )
+            ),
+            TextButton(onPressed: () {Navigator.pushNamed(context, '/historico');},
+                child: const Text(
+                    'Veja seu histórico de descarte aqui.'
+                )
+            ),
+
           ], //children
         ),
       ),
