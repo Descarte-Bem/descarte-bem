@@ -4,6 +4,7 @@ import 'package:decarte_bem/ui/views/home_page.dart';
 import 'package:decarte_bem/ui/views/login_page.dart';
 import 'package:decarte_bem/ui/views/map_page.dart';
 import 'package:decarte_bem/ui/views/info_page.dart';
+import 'package:decarte_bem/ui/views/qrcodescan.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
@@ -26,7 +27,8 @@ class MyApp extends StatelessWidget {
       title: 'Descarte Bem',
       debugShowCheckedModeBanner: true,
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: const Color.fromARGB(255, 255, 255, 255)),
+        colorScheme: ColorScheme.fromSeed(
+            seedColor: const Color.fromARGB(255, 255, 255, 255)),
       ),
       home: const HomePage(),
       routes: {
@@ -35,6 +37,7 @@ class MyApp extends StatelessWidget {
         '/descarte': (context) => const DescartePage(),
         '/map': (context) => const MapPage(),
         '/info': (context) => const InfoPage(),
+        '/qrcodescan': (context) => const QRCodePage(),
       },
     );
   }
