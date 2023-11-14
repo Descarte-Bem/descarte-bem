@@ -1,17 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:decarte_bem/ui/views/qrcodescan.dart';
 import 'package:decarte_bem/ui/widgets/circular_avatar_button.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:qr_flutter/qr_flutter.dart';
-import 'package:screenshot/screenshot.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../models/descarte_model.dart';
+import 'descarte_page.dart';
 
-final ScreenshotController screenshotController = ScreenshotController();
-
-void _saveImage(image) async {
-  // Save the captured image to the device's gallery
-  // Print the result of the saving operation
-}
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -47,49 +42,52 @@ class _HomePageState extends State<HomePage> {
   disCard(DescarteModel descarte) {
     return Padding(
       padding: const EdgeInsets.all(10.0),
-      child: Container(
-        padding: EdgeInsets.all(MediaQuery.of(context).size.height / 65),
-        height: MediaQuery.of(context).size.height / 10,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(15),
-          color: Colors.teal.shade200,
-        ),
-        child: ListView.separated(
-          separatorBuilder: (_, __) {
-            return Divider();
-          },
-          itemCount: descarte.descartes.length,
-          itemBuilder: (context, index) {
-            var descarteAtual = descarte.descartes[index];
-            return Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Text(
-                  descarteAtual['subcategoria'] == ''
-                      ? descarteAtual['categoria'][0].toUpperCase() +
-                          descarteAtual['categoria'].substring(1)
-                      : descarteAtual['subcategoria'][0].toUpperCase() +
-                          descarteAtual['subcategoria'].substring(1),
-                  style: TextStyle(
-                      fontSize: MediaQuery.of(context).size.width / 30),
-                ),
-                Text(
-                  descarteAtual['subcategoria'] == ''
-                      ? ''
-                      : descarteAtual['categoria'][0].toUpperCase() +
-                          descarteAtual['categoria'].substring(1),
-                  style: TextStyle(
-                      fontSize: MediaQuery.of(context).size.width / 30),
-                ),
-                Text(
-                  descarteAtual['quantidade'].toString(),
-                  style: TextStyle(
-                      fontSize: MediaQuery.of(context).size.width / 30),
-                ),
-              ],
-            );
-          },
+      child: GestureDetector(
+        onTap: () {Navigator.pushNamed(context, '/edit-descarte');},
+        child: Container(
+          padding: EdgeInsets.all(MediaQuery.of(context).size.height / 65),
+          height: MediaQuery.of(context).size.height / 10,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(15),
+            color: Colors.teal.shade200,
+          ),
+          child: ListView.separated(
+            separatorBuilder: (_, __) {
+              return Divider();
+            },
+            itemCount: descarte.descartes.length,
+            itemBuilder: (context, index) {
+              var descarteAtual = descarte.descartes[index];
+              return Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text(
+                    descarteAtual['subcategoria'] == ''
+                        ? descarteAtual['categoria'][0].toUpperCase() +
+                            descarteAtual['categoria'].substring(1)
+                        : descarteAtual['subcategoria'][0].toUpperCase() +
+                            descarteAtual['subcategoria'].substring(1),
+                    style: TextStyle(
+                        fontSize: MediaQuery.of(context).size.width / 30),
+                  ),
+                  Text(
+                    descarteAtual['subcategoria'] == ''
+                        ? ''
+                        : descarteAtual['categoria'][0].toUpperCase() +
+                            descarteAtual['categoria'].substring(1),
+                    style: TextStyle(
+                        fontSize: MediaQuery.of(context).size.width / 30),
+                  ),
+                  Text(
+                    descarteAtual['quantidade'].toString(),
+                    style: TextStyle(
+                        fontSize: MediaQuery.of(context).size.width / 30),
+                  ),
+                ],
+              );
+            },
+          ),
         ),
       ),
     );
@@ -105,30 +103,10 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     var wid = MediaQuery.of(context).size.width;
     var hei = MediaQuery.of(context).size.height;
-    screenshotController
-        .captureFromWidget(
-      QrImageView(
-        data: '1234567890',
-        version: QrVersions.auto,
-        size: 50.0,
-      ),
-    )
-        .then((capturedImage) {
-      Image.memory(capturedImage);
-      // Handle captured image
-    });
 
     return Scaffold(
       backgroundColor: const Color(0xFFD9D9D9),
       appBar: AppBar(
-        leading: IconButton(
-          icon: Icon(Icons.restart_alt, color: Colors.grey,),
-          onPressed: (){
-            getPendingDiscard();
-            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                content: Text("Página atualizada!")));
-          },
-        ),
         backgroundColor: const Color(0xFFFFFFFF),
         elevation: 0,
         toolbarHeight: 70,
@@ -138,8 +116,7 @@ class _HomePageState extends State<HomePage> {
         centerTitle: true,
         actions: const [CircularAvatarButton()],
       ),
-      body: Container(
-        alignment: AlignmentDirectional.center,
+      body: SingleChildScrollView(
         child: Column(
           children: [
             Container(
@@ -199,31 +176,76 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
             ),
+            SizedBox(
+              height: MediaQuery.of(context).size.height/50,
+            ),
             pendingDiscard == null ?
-            ElevatedButton(
-              onPressed: () async {
-                await getPendingDiscard();
-                if (pendingDiscard == null) {
-                  Navigator.pushNamed(context, '/descarte');
-                } else {
-                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                      content: Text("Você possui um descarte pendente")));
-                }
-              },
-              child: const Text('Iniciar novo descarte'),
-            ) :
-            ElevatedButton(
-              onPressed: () async {
-                await getPendingDiscard();
-                if (pendingDiscard == null){
-                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                      content: Text("Você já realizou o descarte!")));
-                  }
-                else {
-                  Navigator.pushNamed(context, '/qrcodescan');
-                }
-              },
-              child: const Text('Efetuar descarte'),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.teal.shade700
+                  ),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => DescartePage(updateHome: getPendingDiscard,))
+                    );
+                  },
+                  child: const Text('Iniciar novo descarte'),
+                ),
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.grey.shade700
+                  ),
+                  onPressed: () async {
+                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                        content: Text("Inicie um novo descarte!")));
+                  },
+                  child: const Text('Efetuar descarte'),
+                ),
+              ],
+            ):
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.grey.shade700
+                  ),
+                  onPressed: () async {
+                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                        content: Text("Você possui um descarte pendente")));
+                  },
+                  child: const Text('Iniciar novo descarte'),
+                ),
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.teal.shade700
+                  ),
+                  onPressed: () async {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => QRCodePage(updateHome: getPendingDiscard,))
+                    );                  },
+                  child: const Text('Efetuar descarte'),
+                ),
+              ],
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 50.0),
+              child: ElevatedButton.icon(
+                style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.teal.shade100
+                ),
+                onPressed: ()async{
+                  dynamic _url = Uri.parse('https://assistenciafarmaceutica.uff.br/');
+                  await launchUrl(_url);
+                },
+                icon: Icon(Icons.info),
+                label: Text('Saiba Mais')
+              ),
             )
           ], //children
         ),

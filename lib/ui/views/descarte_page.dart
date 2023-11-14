@@ -6,7 +6,8 @@ import 'package:flutter/material.dart';
 import '../widgets/circular_avatar_button.dart';
 
 class DescartePage extends StatefulWidget {
-  const DescartePage({Key? key}) : super(key: key);
+  final Function updateHome;
+  const DescartePage({Key? key, required this.updateHome}) : super(key: key);
 
   @override
   State<DescartePage> createState() => _DescartePageState();
@@ -163,8 +164,11 @@ class _DescartePageState extends State<DescartePage> {
                             await FirebaseFirestore.instance
                                 .collection('descartes')
                                 .add(novoDescarte);
-                            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Descarte adicionado com sucesso")));
-                            Navigator.pop(context);
+                            if(mounted){
+                              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Descarte adicionado com sucesso")));
+                              Navigator.pop(context);
+                            }
+                            widget.updateHome();
                           } else {
                             ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Adicione um novo material primeiro")));
                           }
