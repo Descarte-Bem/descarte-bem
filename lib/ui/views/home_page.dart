@@ -275,9 +275,16 @@ class _HomePageState extends State<HomePage> {
           ),
         ],
         onTap: (int index) {
+          if (index == 0) {
+            Navigator.pushNamed(context, '/info');
+          }
+          if (index == 1) {
+            Navigator.pushNamed(context, '/home');
+          }
           if (index == 2) {
             Navigator.pushNamed(context, '/map');
           }
+
         },
         selectedItemColor: Colors.black54,
       ),
