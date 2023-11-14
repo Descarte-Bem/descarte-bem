@@ -1,10 +1,9 @@
 import 'package:decarte_bem/firebase_options.dart';
-import 'package:decarte_bem/ui/views/descarte_page.dart';
+import 'package:decarte_bem/ui/views/edit_descarte_page.dart';
 import 'package:decarte_bem/ui/views/home_page.dart';
 import 'package:decarte_bem/ui/views/login_page.dart';
 import 'package:decarte_bem/ui/views/map_page.dart';
 import 'package:decarte_bem/ui/views/info_page.dart';
-import 'package:decarte_bem/ui/views/qrcodescan.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
@@ -32,12 +31,11 @@ class MyApp extends StatelessWidget {
       ),
       home: const LoginPage(),
       routes: {
+        '/edit-descarte': (context) => const EditDescarte(),
         '/home': (context) => const HomePage(),
         '/login': (context) => const LoginPage(),
-        '/descarte': (context) => const DescartePage(),
         '/map': (context) => const MapPage(),
         '/info': (context) => const InfoPage(),
-        '/qrcodescan': (context) => const QRCodePage(),
       },
     );
   }
