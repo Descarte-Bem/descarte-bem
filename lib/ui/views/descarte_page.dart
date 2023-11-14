@@ -204,6 +204,10 @@ class _DescartePageState extends State<DescartePage> {
           ),
         ],
         onTap: (int index) {
+
+          if (index == 0) {
+            Navigator.popAndPushNamed(context, '/info');
+          }
           if (index == 1) {
             Navigator.pop(context);
           }

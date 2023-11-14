@@ -153,35 +153,35 @@ class _HomePageState extends State<HomePage> {
               'assets/medicine-bro.gif',
               height: hei * 0.3,
             ),
-
-          Container(
-            width: MediaQuery.of(context).size.width * 0.8,
-             //height: MediaQuery.of(context).size.height * 0.070,
+            Container(
+              width: MediaQuery.of(context).size.width * 0.8,
+               //height: MediaQuery.of(context).size.height * 0.070,
               decoration: const BoxDecoration(
-               //color: Colors.pink,
-            ),
+                 //color: Colors.pink,
+              ),
 
-            child: const Column(
+              child: const Column(
 
-              children: [
-                  Text('A preservação do meio ambiente começa com pequenas atitudes '
-                    'diárias.',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                fontSize: 16,
-                color: Colors.black45,
-                fontWeight: FontWeight.w600,
-                ),
-            ),
-                  Text('Comece a descartar medicamentos de forma consciente agora mesmo',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                fontSize: 16,
-                color: Colors.black45,
-                fontWeight: FontWeight.w800,
-                    ),
+                children: [
+                    Text('A preservação do meio ambiente começa com pequenas atitudes '
+                      'diárias.',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                  fontSize: 16,
+                  color: Colors.black45,
+                  fontWeight: FontWeight.w600,
                   ),
-              ],
+              ),
+                    Text('Comece a descartar medicamentos de forma consciente agora mesmo',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                  fontSize: 16,
+                  color: Colors.black45,
+                  fontWeight: FontWeight.w800,
+                      ),
+                    ),
+                ],
+              ),
             ),
             SizedBox(
               height: MediaQuery.of(context).size.height/50,
@@ -253,8 +253,14 @@ class _HomePageState extends State<HomePage> {
                 icon: Icon(Icons.info),
                 label: Text('Saiba Mais')
               ),
-            )
-          ], //children
+            ),
+            TextButton(
+                onPressed: () {},//Navigator.pushNamed(context, '/historico');},
+                child: const Text(
+                    'Veja seu histórico de descarte aqui.'
+                )
+            ),
+          ], // Children
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(
@@ -284,9 +290,6 @@ class _HomePageState extends State<HomePage> {
         onTap: (int index) {
           if (index == 0) {
             Navigator.pushNamed(context, '/info');
-          }
-          if (index == 1) {
-            Navigator.pushNamed(context, '/home');
           }
           if (index == 2) {
             Navigator.pushNamed(context, '/map');

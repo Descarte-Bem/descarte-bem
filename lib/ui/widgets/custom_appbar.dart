@@ -7,6 +7,8 @@ class CustomAppBar extends AppBar{
   CustomAppBar({super.key});
 
   @override
+  bool get automaticallyImplyLeading => false;
+  @override
   Color? get backgroundColor => const Color(0xFFFFFFFF);
   @override
   double? get elevation => 0;
