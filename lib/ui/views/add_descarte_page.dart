@@ -1,4 +1,3 @@
-import 'dart:ui';
 import 'package:decarte_bem/ui/widgets/custom_appbar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -19,51 +18,52 @@ class _AddDescartePageState extends State<AddDescartePage> {
 
   @override
   Widget build(BuildContext context) {
+    double pageWidth = MediaQuery.of(context).size.width;
+    double pageHeight = MediaQuery.of(context).size.height;
+
     return Scaffold(
       backgroundColor: const Color(0xFFD9D9D9),
       appBar: CustomAppBar(),
       body: SizedBox(
-        height: MediaQuery.of(context).size.height,
+        height: pageHeight - 90,
         width: MediaQuery.of(context).size.width,
-        child: Center(
-          child: Column(
-            children: [
-              Padding(
-                padding: EdgeInsets.only(top: MediaQuery.of(context).size.height/25),
-                child: customProgress(page),
+        child: Column(
+          children: [
+            Padding(
+              padding: EdgeInsets.only(top: pageHeight/25),
+              child: customProgress(page),
+            ),
+            Expanded(
+              child: page == 1 ? FutureBuilder<Widget?>(
+                future: selectCategory(),
+                builder: (context, snapshot){
+                  if(snapshot.hasData){
+                    return snapshot.data!;
+                  }
+                  return const Center(child: CircularProgressIndicator(),);
+                },
+              ) : nextWidget!,
+            ),
+            Padding(
+              padding: EdgeInsets.all(pageHeight/15),
+              child: ElevatedButton.icon(
+                onPressed: (){
+                  if(page == 1){
+                    Navigator.pop(context);
+                  } else {
+                    setState(() {
+                      page = 1;
+                    });
+                  }
+                },
+                icon: Icon(Icons.arrow_back),
+                label: Text('Voltar'),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.red.shade800
+                )
               ),
-              Expanded(
-                child: page == 1 ? FutureBuilder<Widget?>(
-                  future: selectCategory(),
-                  builder: (context, snapshot){
-                    if(snapshot.hasData){
-                      return snapshot.data!;
-                    }
-                    return const Center(child: CircularProgressIndicator(),);
-                  },
-                ) : nextWidget!,
-              ),
-              Padding(
-                padding: EdgeInsets.only(bottom: MediaQuery.of(context).size.height/15),
-                child: ElevatedButton.icon(
-                  onPressed: (){
-                    if(page == 1){
-                      Navigator.pop(context);
-                    } else {
-                      setState(() {
-                        page = 1;
-                      });
-                    }
-                  },
-                  icon: Icon(Icons.arrow_back),
-                  label: Text('Voltar'),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.red.shade800
-                  )
-                ),
-              )
-            ],
-          ),
+            )
+          ],
         ),
       ),
     );
@@ -74,8 +74,9 @@ class _AddDescartePageState extends State<AddDescartePage> {
   }
 
   Widget customCard(String title, int altura){
+    double pageHeight = MediaQuery.of(context).size.height;
     return Container(
-      height: MediaQuery.of(context).size.height/altura,
+      height: pageHeight/altura,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15),
         color: Colors.white,
@@ -124,7 +125,7 @@ class _AddDescartePageState extends State<AddDescartePage> {
           ),
         ),
         Padding(
-          padding: EdgeInsets.only(top: 15.0, bottom: MediaQuery.of(context).size.height/5),
+          padding: EdgeInsets.only(top: MediaQuery.of(context).size.height/100, bottom: MediaQuery.of(context).size.height/5),
           child: Text(
             'Selecione a quantidade',
             style: TextStyle(fontSize: MediaQuery.of(context).size.width/15),
@@ -152,7 +153,7 @@ class _AddDescartePageState extends State<AddDescartePage> {
           ],
         ),
         Padding(
-          padding: EdgeInsets.only(top: MediaQuery.of(context).size.height/7),
+          padding: EdgeInsets.all(MediaQuery.of(context).size.height/10),
           child: ElevatedButton(
               onPressed: () async {
                 if (quantidadeInterna > 0){
@@ -187,14 +188,14 @@ class _AddDescartePageState extends State<AddDescartePage> {
     return Column(
       children: [
         Padding(
-          padding: EdgeInsets.only(top: 15.0),
+          padding: EdgeInsets.only(top: MediaQuery.of(context).size.height/100),
           child: Text(
             selectedCategory[0].toUpperCase()+selectedCategory.substring(1),
             style: TextStyle(fontSize: MediaQuery.of(context).size.width/12),
           ),
         ),
         Padding(
-          padding: EdgeInsets.only(top: 15.0),
+          padding: EdgeInsets.only(top: MediaQuery.of(context).size.height/100),
           child: Text(
             'Selecione a subcategoria',
             style: TextStyle(fontSize: MediaQuery.of(context).size.width/15),
@@ -237,7 +238,7 @@ class _AddDescartePageState extends State<AddDescartePage> {
     return Column(
       children: [
         Padding(
-          padding: EdgeInsets.only(top: 15.0),
+          padding: EdgeInsets.only(top: MediaQuery.of(context).size.height/100),
           child: Text(
             'Selecione a categoria',
             style: TextStyle(fontSize: MediaQuery.of(context).size.width/12),
