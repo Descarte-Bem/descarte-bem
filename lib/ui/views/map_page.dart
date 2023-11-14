@@ -51,7 +51,7 @@ class _MapPageState extends State<MapPage> with TickerProviderStateMixin {
       point: LatLng(lat, long),
       builder: (_){
         return IconButton(
-          icon: const Icon(Icons.medical_services, size: 30, color: Colors.red,),
+          icon: const Icon(Icons.medication_rounded, size: 30, color: Colors.red,),
           onPressed: (){
             showDialog(
               context: context,

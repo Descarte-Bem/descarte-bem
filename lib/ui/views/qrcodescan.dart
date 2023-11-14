@@ -8,7 +8,8 @@ import 'dart:io';
 import '../../models/descarte_model.dart';
 
 class QRCodePage extends StatefulWidget {
-  const QRCodePage({super.key});
+  final Function updateHome;
+  const QRCodePage({super.key, required this.updateHome});
 
   @override
   State<StatefulWidget> createState() => _QRCodePageState();
@@ -145,6 +146,7 @@ class _QRCodePageState extends State<QRCodePage> {
                             if (context.mounted) {
                               ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Descarte concluído!")));
                               Navigator.pop(context);
+                              widget.updateHome();
                             }
 
                           },
