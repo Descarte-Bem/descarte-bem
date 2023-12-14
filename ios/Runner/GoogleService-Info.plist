@@ -2,18 +2,24 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>CLIENT_ID</key>
+	<string>93822977761-7irbo13dhhlmdaj2qmhlgdij5urmjd9g.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.93822977761-7irbo13dhhlmdaj2qmhlgdij5urmjd9g</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>93822977761-1rt6hpfgfmi66b163ps8461sjlmgtjuc.apps.googleusercontent.com</string>
 	<key>API_KEY</key>
-	<string>AIzaSyBOHZ14YwM8ymG0xpoaUXMVpKo62c8LyWY</string>
+	<string>AIzaSyBk0TKX5Ut_HW1cT721KLEWHY_kD1W_VQU</string>
 	<key>GCM_SENDER_ID</key>
-	<string>103597176816</string>
+	<string>93822977761</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.example.decarteBem</string>
+	<string>br.uff.descartabem</string>
 	<key>PROJECT_ID</key>
-	<string>descartetest</string>
+	<string>descarte-b78a4</string>
 	<key>STORAGE_BUCKET</key>
-	<string>descartetest.appspot.com</string>
+	<string>descarte-b78a4.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -25,6 +31,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:103597176816:ios:3e83d9d2de788fbc328f35</string>
+	<string>1:93822977761:ios:16a965cdd1645f9dafd9a0</string>
 </dict>
 </plist>
