@@ -1,35 +1,94 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:decarte_bem/ui/views/add_descarte_page.dart';
+import 'package:decarte_bem/ui/views/map_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
+import '../../models/descarte_model.dart';
 import '../widgets/circular_avatar_button.dart';
 
 class DescartePage extends StatefulWidget {
+  final DescarteModel? pendingDiscard;
   final Function updateHome;
-  const DescartePage({Key? key, required this.updateHome}) : super(key: key);
+  const DescartePage({Key? key, required this.updateHome, this.pendingDiscard}) : super(key: key);
 
   @override
   State<DescartePage> createState() => _DescartePageState();
 }
 
 class _DescartePageState extends State<DescartePage> {
-  adicionaMaterial(String categoria, String subcategoria, int quantidade){
+  late Map<String, dynamic> novoDescarte;
+  DescarteModel? pendingDiscard;
+
+
+  getPendingDiscard() async {
+    List<DescarteModel> discardList = await FirebaseFirestore.instance
+        .collection('descartes')
+        .where('usuario', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+        .get()
+        .then((value) =>
+        value.docs.map(DescarteModel.fromQueryDocSnapshot).toList());
+    for (var discard in discardList) {
+      if (discard.farmaciaId == null) {
+        setState(() {
+          pendingDiscard = discard;
+        });
+        return;
+      }
+    }
+    setState(() {
+      pendingDiscard = null;
+    });
+  }
+
+  updateDescarte() async {
+    widget.updateHome();
+    await getPendingDiscard();
+
+    if(novoDescarte["descarte"].isEmpty){
+      await FirebaseFirestore.instance
+          .collection('descartes')
+          .doc(pendingDiscard!.id)
+          .delete();
+    }
+
+    else{
+      await FirebaseFirestore.instance
+          .collection('descartes')
+          .doc(pendingDiscard!.id)
+          .update(novoDescarte);
+    }
+
+    widget.updateHome();
+
+    setState(() {});
+  }
+
+  adicionaMaterial(String categoria, String subcategoria, int quantidade) async {
+    widget.updateHome();
+
     Map<String, dynamic> descarte = {
       "categoria": categoria,
       "subcategoria": subcategoria,
       "quantidade": quantidade
     };
-    setState(() {
-      novoDescarte["descarte"].add(descarte);
-    });
+
+    if (novoDescarte["descarte"].isEmpty){
+      setState(() {
+        novoDescarte["descarte"].add(descarte);
+      });
+      await FirebaseFirestore.instance
+          .collection('descartes')
+          .add(novoDescarte);
+    }
+    else {
+      setState(() {
+        novoDescarte["descarte"].add(descarte);
+      });
+      await updateDescarte();
+    }
   }
 
-  Map<String, dynamic> novoDescarte = {
-    "usuario": FirebaseAuth.instance.currentUser!.uid,
-    "farmacia": null,
-    "descarte": []
-  };
 
   Widget customCard(String title, String subtitle, int number, Function delete){
     return Container(
@@ -64,10 +123,9 @@ class _DescartePageState extends State<DescartePage> {
             ),
           ),
           IconButton(
-            onPressed: (){
-              setState(() {
-                delete();
-              });
+            onPressed: () async {
+              delete();
+              await updateDescarte();
             },
             icon: Icon(
               Icons.delete,
@@ -80,9 +138,37 @@ class _DescartePageState extends State<DescartePage> {
   }
 
   @override
+  void initState() {
+    pendingDiscard = widget.pendingDiscard;
+    print(widget.pendingDiscard);
+    novoDescarte = {
+    "usuario": FirebaseAuth.instance.currentUser!.uid,
+    "farmacia": null,
+    "descarte": []
+    };
+
+    if(pendingDiscard != null){
+      setState(() {
+        novoDescarte["descarte"] = pendingDiscard!.descartes;
+      });
+    }
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    double wid = MediaQuery.of(context).size.width;
+    double hei = MediaQuery.of(context).size.height;
+
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          color: Colors.grey.shade700,
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
         backgroundColor: const Color(0xFFFFFFFF),
         elevation: 0,
         toolbarHeight: 70,
@@ -140,43 +226,85 @@ class _DescartePageState extends State<DescartePage> {
                   children: [
                     Padding(
                       padding: const EdgeInsets.only(left: 30),
-                      child: ElevatedButton(
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => AddDescartePage(
-                              addDescarte: adicionaMaterial,
-                            ))
-                          );
-                        },
-                        child: const Icon(
-                          Icons.add,
-                          color: Colors.white,
-                          size: 50.0,
+                      child: SizedBox(
+                        width: wid/2.5,
+                        height: hei/15,
+                        child: ElevatedButton(
+                          onPressed: () async {
+                            await Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => AddDescartePage(
+                                addDescarte: adicionaMaterial,
+                              ))
+                            );
+                          },
+                          child: Row(
+                            children: [
+                              const Icon(
+                                Icons.add,
+                                color: Colors.white,
+                                size: 50.0,
+                              ),
+                              Flexible(
+                                child: Text(
+                                  "Adicionar material",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    fontSize: wid/30,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(right: 30),
-                      child: ElevatedButton(
-                        onPressed: () async {
-                          if(novoDescarte["descarte"].isNotEmpty){
-                            await FirebaseFirestore.instance
-                                .collection('descartes')
-                                .add(novoDescarte);
-                            if(mounted){
-                              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Descarte adicionado com sucesso")));
-                              Navigator.pop(context);
+                      padding: EdgeInsets.only(right: wid/20),
+                      child: SizedBox(
+                        width: wid/2.5,
+                        height: hei/15,
+                        child: ElevatedButton(
+                          onPressed: () async {
+                            if(novoDescarte["descarte"].isNotEmpty){
+                              await updateDescarte();
+                              widget.updateHome();
+                              if(mounted){
+                                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Descarte adicionado com sucesso")));
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) => MapPage(
+                                    updateHome: (){
+                                      widget.updateHome();
+                                      Navigator.pop(context);
+                                      Navigator.pop(context);
+                                      Navigator.pop(context);
+                                    },
+                                  ))
+                                );
+                              }
+                            } else {
+                              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Adicione um novo material primeiro")));
                             }
-                            widget.updateHome();
-                          } else {
-                            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Adicione um novo material primeiro")));
-                          }
-                        },
-                        child: const Icon(
-                          Icons.check,
-                          color: Colors.white,
-                          size: 50.0,
+                          },
+                          child: Row(
+                            children: [
+                              const Icon(
+                                Icons.check,
+                                color: Colors.white,
+                                size: 50.0,
+                              ),
+                              Flexible(
+                                child: Text(
+                                  "Encontrar um local de descarte",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    fontSize: wid/30,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     )
@@ -186,37 +314,6 @@ class _DescartePageState extends State<DescartePage> {
             )
           ],
         ),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.info, size: 25,),
-            label: 'Infomações',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home, size: 25,),
-            label: 'Início',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.map_rounded, size: 25,),
-            label: 'Mapa',
-          ),
-        ],
-        onTap: (int index) {
-
-          if (index == 0) {
-            Navigator.popAndPushNamed(context, '/info');
-          }
-          if (index == 1) {
-            Navigator.pop(context);
-          }
-          if (index == 2) {
-            Navigator.popAndPushNamed(context, '/map');
-          }
-        },
-        selectedItemColor: Colors.black54,
-
       ),
     );
   }

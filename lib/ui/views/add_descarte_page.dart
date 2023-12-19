@@ -23,30 +23,29 @@ class _AddDescartePageState extends State<AddDescartePage> {
 
     return Scaffold(
       backgroundColor: const Color(0xFFD9D9D9),
-      appBar: CustomAppBar(),
-      body: SizedBox(
-        height: pageHeight - 90,
-        width: MediaQuery.of(context).size.width,
-        child: Column(
-          children: [
-            Padding(
-              padding: EdgeInsets.only(top: pageHeight/25),
-              child: customProgress(page),
-            ),
-            Expanded(
-              child: page == 1 ? FutureBuilder<Widget?>(
-                future: selectCategory(),
-                builder: (context, snapshot){
-                  if(snapshot.hasData){
-                    return snapshot.data!;
-                  }
-                  return const Center(child: CircularProgressIndicator(),);
-                },
-              ) : nextWidget!,
-            ),
-            Padding(
-              padding: EdgeInsets.all(pageHeight/15),
-              child: ElevatedButton.icon(
+      appBar: CustomAppBar(context: context,),
+      body: SingleChildScrollView(
+        child: SizedBox(
+          height: pageHeight/1.2,
+          width: MediaQuery.of(context).size.width,
+          child: Column(
+            children: [
+              Padding(
+                padding: EdgeInsets.only(top: pageHeight/25),
+                child: customProgress(page),
+              ),
+              Expanded(
+                child: page == 1 ? FutureBuilder<Widget?>(
+                  future: selectCategory(),
+                  builder: (context, snapshot){
+                    if(snapshot.hasData){
+                      return snapshot.data!;
+                    }
+                    return const Center(child: CircularProgressIndicator(),);
+                  },
+                ) : nextWidget!,
+              ),
+              ElevatedButton.icon(
                 onPressed: (){
                   if(page == 1){
                     Navigator.pop(context);
@@ -61,9 +60,9 @@ class _AddDescartePageState extends State<AddDescartePage> {
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.red.shade800
                 )
-              ),
-            )
-          ],
+              )
+            ],
+          ),
         ),
       ),
     );
@@ -153,7 +152,7 @@ class _AddDescartePageState extends State<AddDescartePage> {
           ],
         ),
         Padding(
-          padding: EdgeInsets.all(MediaQuery.of(context).size.height/10),
+          padding: EdgeInsets.all(MediaQuery.of(context).size.height/15),
           child: ElevatedButton(
               onPressed: () async {
                 if (quantidadeInterna > 0){

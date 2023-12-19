@@ -5,6 +5,7 @@ class FarmaciaModel{
   late String cnpj;
   late GeoPoint localizacao;
   late String nome;
+  double? distance;
 
   FarmaciaModel.fromQueryDocSnapshot(QueryDocumentSnapshot<Map<String, dynamic>> qds) {
     id = qds.id;

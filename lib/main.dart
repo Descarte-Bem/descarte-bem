@@ -1,8 +1,7 @@
 import 'package:decarte_bem/firebase_options.dart';
-import 'package:decarte_bem/ui/views/edit_descarte_page.dart';
+import 'package:decarte_bem/ui/views/faq_page.dart';
 import 'package:decarte_bem/ui/views/home_page.dart';
 import 'package:decarte_bem/ui/views/login_page.dart';
-import 'package:decarte_bem/ui/views/map_page.dart';
 import 'package:decarte_bem/ui/views/info_page.dart';
 import 'package:decarte_bem/ui/views/historico_page.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -30,12 +29,11 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(
             seedColor: const Color.fromARGB(255, 255, 255, 255)),
       ),
-      home: const HomePage(),
+      home: const LoginPage(),
       routes: {
-        '/edit-descarte': (context) => const EditDescarte(),
+        '/FAQ': (context) => const FAQPage(),
         '/home': (context) => const HomePage(),
         '/login': (context) => const LoginPage(),
-        '/map': (context) => const MapPage(),
         '/info': (context) => const InfoPage(),
         '/historico': (context) => const HistoricoPage(),
       },
