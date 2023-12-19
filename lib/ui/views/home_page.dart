@@ -7,13 +7,11 @@ import 'package:url_launcher/url_launcher.dart';
 import '../../models/descarte_model.dart';
 import 'descarte_page.dart';
 
-
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
   @override
   State<HomePage> createState() => _HomePageState();
-
 }
 
 class _HomePageState extends State<HomePage> {
@@ -44,7 +42,9 @@ class _HomePageState extends State<HomePage> {
     return Padding(
       padding: const EdgeInsets.all(10.0),
       child: GestureDetector(
-        onTap: () {Navigator.pushNamed(context, '/edit-descarte');},
+        onTap: () {
+          Navigator.pushNamed(context, '/edit-descarte');
+        },
         child: Container(
           padding: EdgeInsets.all(MediaQuery.of(context).size.height / 65),
           height: MediaQuery.of(context).size.height / 10,
@@ -155,111 +155,114 @@ class _HomePageState extends State<HomePage> {
             ),
             Container(
               width: MediaQuery.of(context).size.width * 0.8,
-               //height: MediaQuery.of(context).size.height * 0.070,
+              //height: MediaQuery.of(context).size.height * 0.070,
               decoration: const BoxDecoration(
-                 //color: Colors.pink,
-              ),
+                  //color: Colors.pink,
+                  ),
 
               child: const Column(
-
                 children: [
-                    Text('A preservação do meio ambiente começa com pequenas atitudes '
-                      'diárias.',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                  fontSize: 16,
-                  color: Colors.black45,
-                  fontWeight: FontWeight.w600,
-                  ),
-              ),
-                    Text('Comece a descartar medicamentos de forma consciente agora mesmo',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                  fontSize: 16,
-                  color: Colors.black45,
-                  fontWeight: FontWeight.w800,
-                      ),
+                  Text(
+                    'A preservação do meio ambiente começa com pequenas atitudes '
+                    'diárias.',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: Colors.black45,
+                      fontWeight: FontWeight.w600,
                     ),
+                  ),
+                  Text(
+                    'Comece a descartar medicamentos de forma consciente agora mesmo',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: Colors.black45,
+                      fontWeight: FontWeight.w800,
+                    ),
+                  ),
                 ],
               ),
             ),
             SizedBox(
-              height: MediaQuery.of(context).size.height/50,
+              height: MediaQuery.of(context).size.height / 50,
             ),
-            pendingDiscard == null ?
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.teal.shade700
+            pendingDiscard == null
+                ? Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.teal.shade700),
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => DescartePage(
+                                        updateHome: getPendingDiscard,
+                                      )));
+                        },
+                        child: const Text('Iniciar novo descarte'),
+                      ),
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.grey.shade700),
+                        onPressed: () async {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                  content: Text("Inicie um novo descarte!")));
+                        },
+                        child: const Text('Efetuar descarte'),
+                      ),
+                    ],
+                  )
+                : Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.grey.shade700),
+                        onPressed: () async {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                  content: Text(
+                                      "Você possui um descarte pendente")));
+                        },
+                        child: const Text('Iniciar novo descarte'),
+                      ),
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.teal.shade700),
+                        onPressed: () async {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => QRCodePage(
+                                        updateHome: getPendingDiscard,
+                                      )));
+                        },
+                        child: const Text('Efetuar descarte'),
+                      ),
+                    ],
                   ),
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => DescartePage(updateHome: getPendingDiscard,))
-                    );
-                  },
-                  child: const Text('Iniciar novo descarte'),
-                ),
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.grey.shade700
-                  ),
-                  onPressed: () async {
-                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                        content: Text("Inicie um novo descarte!")));
-                  },
-                  child: const Text('Efetuar descarte'),
-                ),
-              ],
-            ):
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.grey.shade700
-                  ),
-                  onPressed: () async {
-                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                        content: Text("Você possui um descarte pendente")));
-                  },
-                  child: const Text('Iniciar novo descarte'),
-                ),
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.teal.shade700
-                  ),
-                  onPressed: () async {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => QRCodePage(updateHome: getPendingDiscard,))
-                    );                  },
-                  child: const Text('Efetuar descarte'),
-                ),
-              ],
-            ),
             Padding(
               padding: const EdgeInsets.only(top: 50.0),
               child: ElevatedButton.icon(
-                style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.teal.shade100
-                ),
-                onPressed: ()async{
-                  dynamic _url = Uri.parse('https://assistenciafarmaceutica.uff.br/');
-                  await launchUrl(_url);
-                },
-                icon: Icon(Icons.info),
-                label: Text('Saiba Mais')
-              ),
+                  style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.teal.shade100),
+                  onPressed: () async {
+                    dynamic _url =
+                        Uri.parse('https://assistenciafarmaceutica.uff.br/');
+                    await launchUrl(_url);
+                  },
+                  icon: Icon(Icons.info),
+                  label: Text('Saiba Mais')),
             ),
             TextButton(
-                onPressed: () {},//Navigator.pushNamed(context, '/historico');},
-                child: const Text(
-                    'Veja seu histórico de descarte aqui.'
-                )
-            ),
+                onPressed: () {
+                  Navigator.pushNamed(context, '/historico');
+                },
+                child: const Text('Veja seu histórico de descarte aqui.')),
           ], // Children
         ),
       ),
@@ -294,7 +297,6 @@ class _HomePageState extends State<HomePage> {
           if (index == 2) {
             Navigator.pushNamed(context, '/map');
           }
-
         },
         selectedItemColor: Colors.black54,
       ),
