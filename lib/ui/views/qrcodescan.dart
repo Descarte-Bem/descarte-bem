@@ -8,8 +8,9 @@ import 'dart:io';
 import '../../models/descarte_model.dart';
 
 class QRCodePage extends StatefulWidget {
+  final DescarteModel? pendingDiscard;
   final Function updateHome;
-  const QRCodePage({super.key, required this.updateHome});
+  const QRCodePage({super.key, required this.updateHome, required this.pendingDiscard});
 
   @override
   State<StatefulWidget> createState() => _QRCodePageState();
@@ -19,7 +20,6 @@ class _QRCodePageState extends State<QRCodePage> {
   QRViewController? _controller;
   final GlobalKey _qrKey = GlobalKey(debugLabel: 'QR');
   Barcode? _result;
-  DescarteModel? pendingDiscard;
 
 
 
@@ -38,25 +38,7 @@ class _QRCodePageState extends State<QRCodePage> {
     return null;
   }
 
-  getPendingDiscard() async {
-    List<DescarteModel> discardList = await FirebaseFirestore.instance
-        .collection('descartes')
-        .where('usuario', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
-        .get()
-        .then((value) =>
-        value.docs.map(DescarteModel.fromQueryDocSnapshot).toList());
-    for (var discard in discardList) {
-      if (discard.farmaciaId == null) {
-        setState(() {
-          pendingDiscard = discard;
-        });
-        return;
-      }
-    }
-    setState(() {
-      pendingDiscard = null;
-    });
-  }
+
 
   @override
   void reassemble() {
@@ -137,15 +119,13 @@ class _QRCodePageState extends State<QRCodePage> {
                       children: [
                         ElevatedButton(
                           onPressed: () async {
-                            await getPendingDiscard();
                             Map<String, dynamic> update = {"farmacia": snapshot.data!.id};
-                            DocumentReference documentReference = FirebaseFirestore.instance.doc('/descartes/${pendingDiscard!.id}');
+                            DocumentReference documentReference = FirebaseFirestore.instance.doc('/descartes/${widget.pendingDiscard!.id}');
                             await documentReference.update(
                                 update
                             );
                             if (context.mounted) {
                               ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Descarte concluído!")));
-                              Navigator.pop(context);
                               widget.updateHome();
                             }
 
