@@ -7,13 +7,11 @@ import '../widgets/actions_bar.dart';
 import '../widgets/custom_appbar.dart';
 import 'descarte_page.dart';
 
-
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
   @override
   State<HomePage> createState() => _HomePageState();
-
 }
 
 class _HomePageState extends State<HomePage> {
