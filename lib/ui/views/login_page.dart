@@ -26,7 +26,7 @@ class _LoginPageState extends State<LoginPage> {
           children: [
             Padding(
               padding: EdgeInsets.only(bottom: MediaQuery.of(context).size.height/5),
-              child: SvgPicture.asset('assets/Logov2.svg'),
+              child: SvgPicture.asset('assets/DescartaBem_Logo2.svg'),
             ),
             FutureBuilder<bool>(
               future: checkUserLoggedIn(),
