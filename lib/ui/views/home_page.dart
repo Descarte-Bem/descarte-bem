@@ -184,8 +184,8 @@ class _HomePageState extends State<HomePage> {
                     MaterialPageRoute(builder: (context) => DescartePage(updateHome: getPendingDiscard, pendingDiscard: pendingDiscard,))
                   );
                 },
-                child: pendingDiscard == null ? const Text('Iniciar novo descarte') :
-                const Text('Continuar descarte'),
+                child: pendingDiscard == null ? const Text('Iniciar novo descarte', style: TextStyle(color: Colors.white),) :
+                const Text('Continuar descarte', style: TextStyle(color: Colors.white),),
               ),
             ),
             Padding(

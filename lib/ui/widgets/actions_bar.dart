@@ -16,7 +16,7 @@ class ActionsBar extends StatefulWidget {
 class _ActionsBarState extends State<ActionsBar> {
 
   Future<void> launchAssFaQQUrl() async {
-    dynamic url = Uri.parse('https://assistenciafarmaceutica.uff.br/');
+    dynamic url = Uri.parse('https://assistenciafarmaceutica.uff.br/descarte-bem/');
     await launchUrl(url);
   }
 
@@ -108,7 +108,9 @@ class _ActionsBarState extends State<ActionsBar> {
                 );
 
               }, true),
-              actionButton('Histórico de descartes', Icons.history_sharp, (){}, false),
+              actionButton('Histórico de descartes', Icons.history_sharp, (){
+                Navigator.pushNamed(context, '/history');
+              }, true),
             ],
           ),
           Row(

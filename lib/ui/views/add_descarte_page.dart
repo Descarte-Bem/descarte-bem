@@ -45,6 +45,7 @@ class _AddDescartePageState extends State<AddDescartePage> {
                   },
                 ) : nextWidget!,
               ),
+              Divider(),
               ElevatedButton.icon(
                 onPressed: (){
                   if(page == 1){
@@ -55,8 +56,8 @@ class _AddDescartePageState extends State<AddDescartePage> {
                     });
                   }
                 },
-                icon: Icon(Icons.arrow_back),
-                label: Text('Voltar'),
+                icon: Icon(Icons.arrow_back, color: Colors.white,),
+                label: Text('Voltar', style: TextStyle(color: Colors.white),),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.red.shade800
                 )
@@ -94,7 +95,10 @@ class _AddDescartePageState extends State<AddDescartePage> {
   Widget selectQuantity(int quantidadeInterna){
     incrementButton(String op){
       return IconButton.filled(
-        color: Colors.blueGrey,
+        style: ButtonStyle(
+          backgroundColor: MaterialStateProperty.all(op == "soma" ? Colors.teal: Colors.red.shade800),
+          shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)))
+        ),
         onPressed: (){
           int novaQuantidade = quantidadeInterna;
           if (op == "soma") {
@@ -109,9 +113,10 @@ class _AddDescartePageState extends State<AddDescartePage> {
             nextWidget = selectQuantity(novaQuantidade);
           }
         },
-        icon: Icon(op == "soma" ? Icons.add : Icons.remove)
+        icon: Icon(op == "soma" ? Icons.add : Icons.remove, color: Colors.white,)
       );
     }
+
     return Column(
       children: [
         Padding(
@@ -133,7 +138,10 @@ class _AddDescartePageState extends State<AddDescartePage> {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            incrementButton("sub"),
+            Padding(
+              padding: EdgeInsets.only(right: MediaQuery.of(context).size.width/15),
+              child: incrementButton("sub"),
+            ),
             Container(
               height: MediaQuery.of(context).size.width/5,
               width: MediaQuery.of(context).size.width/5,
@@ -148,33 +156,37 @@ class _AddDescartePageState extends State<AddDescartePage> {
                 ),
               ),
             ),
-            incrementButton("soma"),
+            Padding(
+              padding: EdgeInsets.only(left: MediaQuery.of(context).size.width/15),
+              child: incrementButton("soma"),
+            ),
           ],
         ),
         Padding(
           padding: EdgeInsets.all(MediaQuery.of(context).size.height/15),
           child: ElevatedButton(
-              onPressed: () async {
-                if (quantidadeInterna > 0){
-                  if(selectedCategory == "perfuro-cortantes"){
-                    widget.addDescarte(selectedCategory, '', quantidadeInterna);
-                  } else {
-                    widget.addDescarte(selectedCategory, selectedSubcategory, quantidadeInterna);
-                  }
-                  Navigator.pop(context);
+            onPressed: () async {
+              if (quantidadeInterna > 0){
+                if(selectedCategory == "perfuro-cortantes"){
+                  widget.addDescarte(selectedCategory, '', quantidadeInterna);
                 } else {
-                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("A quantidade deve ser maior do que 0")));
+                  widget.addDescarte(selectedCategory, selectedSubcategory, quantidadeInterna);
                 }
-              },
-              child: Text(
-                'Adicionar Material',
-                style: TextStyle(
-                  fontSize: MediaQuery.of(context).size.height/40
-                ),
+                Navigator.pop(context);
+              } else {
+                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("A quantidade deve ser maior do que 0")));
+              }
+            },
+            style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.teal
+            ),
+            child: Text(
+              'Adicionar Material',
+              style: TextStyle(
+                fontSize: MediaQuery.of(context).size.height/40,
+                color: Colors.white
               ),
-              style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.teal
-              )
+            )
           ),
         )
       ],

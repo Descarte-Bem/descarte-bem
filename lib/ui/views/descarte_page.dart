@@ -172,7 +172,7 @@ class _DescartePageState extends State<DescartePage> {
         backgroundColor: const Color(0xFFFFFFFF),
         elevation: 0,
         toolbarHeight: 70,
-        title: const Text("Descarte Bem"),
+        title: const Text("Descarta Bem"),
         titleTextStyle: const TextStyle(
             color: Colors.black54, fontWeight: FontWeight.w400, fontSize: 22),
         centerTitle: true,
@@ -217,99 +217,101 @@ class _DescartePageState extends State<DescartePage> {
               }
             )),
             Padding(
-              padding: EdgeInsets.only(
-                  bottom: MediaQuery.of(context).size.height / 15),
-              child: Container(
-                alignment: Alignment.bottomLeft,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(left: 30),
-                      child: SizedBox(
-                        width: wid/2.5,
-                        height: hei/15,
-                        child: ElevatedButton(
-                          onPressed: () async {
-                            await Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) => AddDescartePage(
-                                addDescarte: adicionaMaterial,
-                              ))
-                            );
-                          },
-                          child: Row(
-                            children: [
-                              const Icon(
-                                Icons.add,
-                                color: Colors.white,
-                                size: 50.0,
-                              ),
-                              Flexible(
-                                child: Text(
-                                  "Adicionar material",
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    fontSize: wid/30,
-                                  ),
-                                ),
-                              ),
-                            ],
+              padding: EdgeInsets.only(bottom: MediaQuery.of(context).size.height / 15),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  SizedBox(
+                    width: wid/1.5,
+                    height: hei/15,
+                    child: ElevatedButton(
+                      onPressed: () async {
+                        await Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => AddDescartePage(
+                            addDescarte: adicionaMaterial,
+                          ))
+                        );
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.teal.shade400,
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          const Icon(
+                            Icons.add,
+                            color: Colors.white,
+                            size: 50.0,
                           ),
-                        ),
+                          Flexible(
+                            child: Text(
+                              "Adicionar material",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontSize: wid/30,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
-                    Padding(
-                      padding: EdgeInsets.only(right: wid/20),
-                      child: SizedBox(
-                        width: wid/2.5,
-                        height: hei/15,
-                        child: ElevatedButton(
-                          onPressed: () async {
-                            if(novoDescarte["descarte"].isNotEmpty){
-                              await updateDescarte();
-                              widget.updateHome();
-                              if(mounted){
-                                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Descarte adicionado com sucesso")));
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(builder: (context) => MapPage(
-                                    updateHome: (){
-                                      widget.updateHome();
-                                      Navigator.pop(context);
-                                      Navigator.pop(context);
-                                      Navigator.pop(context);
-                                    },
-                                  ))
-                                );
-                              }
-                            } else {
-                              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Adicione um novo material primeiro")));
-                            }
-                          },
-                          child: Row(
-                            children: [
-                              const Icon(
-                                Icons.check,
-                                color: Colors.white,
-                                size: 50.0,
-                              ),
-                              Flexible(
-                                child: Text(
-                                  "Encontrar um local de descarte",
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    fontSize: wid/30,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
+                  ),
+                  SizedBox(height: hei/45,),
+                  SizedBox(
+                    width: wid/1.5,
+                    height: hei/15,
+                    child: ElevatedButton(
+                      onPressed: () async {
+                        if(novoDescarte["descarte"].isNotEmpty){
+                          await updateDescarte();
+                          widget.updateHome();
+                          if(mounted){
+                            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Descarte adicionado com sucesso")));
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => MapPage(
+                                updateHome: (){
+                                  widget.updateHome();
+                                  Navigator.pop(context);
+                                  Navigator.pop(context);
+                                  Navigator.pop(context);
+                                },
+                              ))
+                            );
+                          }
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Adicione um novo material primeiro")));
+                        }
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.teal.shade400,
                       ),
-                    )
-                  ],
-                ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          const Icon(
+                            Icons.check,
+                            color: Colors.white,
+                            size: 50.0,
+                          ),
+                          Flexible(
+                            child: Text(
+                              "Encontrar um local de descarte",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontSize: wid/30,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  )
+                ],
               ),
             )
           ],

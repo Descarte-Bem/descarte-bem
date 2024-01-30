@@ -118,6 +118,14 @@ class _QRCodePageState extends State<QRCodePage> {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         ElevatedButton(
+                            onPressed: (){setState(() {
+                              _result = null;
+                            });},
+                            style: ElevatedButton.styleFrom(backgroundColor: Colors.red.shade700),
+                            child: Text('Não', style: TextStyle(color: Colors.white),)
+                        ),
+                        Spacer(flex: 1,),
+                        ElevatedButton(
                           onPressed: () async {
                             Map<String, dynamic> update = {"farmacia": snapshot.data!.id};
                             DocumentReference documentReference = FirebaseFirestore.instance.doc('/descartes/${widget.pendingDiscard!.id}');
@@ -128,20 +136,10 @@ class _QRCodePageState extends State<QRCodePage> {
                               ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Descarte concluído!")));
                               widget.updateHome();
                             }
-
                           },
                           style: ElevatedButton.styleFrom(backgroundColor: Colors.green.shade700),
-                          child: Text('Sim')
+                          child: Text('Sim', style: TextStyle(color: Colors.white),)
                         ),
-                        Spacer(flex: 1,),
-                        ElevatedButton(
-                            onPressed: (){setState(() {
-                              _result = null;
-                            });},
-                            style: ElevatedButton.styleFrom(backgroundColor: Colors.red.shade700),
-                            child: Text('Não')
-                        ),
-
                       ],
                     ),
                   )
