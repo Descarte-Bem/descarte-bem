@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:decarte_bem/ui/views/instrucoes_page.dart';
 import 'package:decarte_bem/ui/widgets/circular_avatar_button.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -133,8 +134,20 @@ class _HomePageState extends State<HomePage> {
                             ),
                             disCard(pendingDiscard!),
                           ],
-                        )),
+                        )
+              )
+
             ),
+
+            /*ElevatedButton(onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const InstrucoesPage()),
+              );
+            }, child: Text('Instrucoes')), */
+            
+
+
             Row(
               children: [
                 Padding(
@@ -144,6 +157,8 @@ class _HomePageState extends State<HomePage> {
                     height: hei * 0.2,
                   ),
                 ),
+
+
                 Flexible(
                   child: Padding(
                     padding: EdgeInsets.only(right: wid * 0.05),

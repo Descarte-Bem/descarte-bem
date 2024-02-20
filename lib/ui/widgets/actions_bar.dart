@@ -96,7 +96,11 @@ class _ActionsBarState extends State<ActionsBar> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              actionButton('Instruções para descarte', Icons.recycling, (){}, false),
+
+              actionButton('Instruções para descarte', Icons.recycling, (){
+                Navigator.pushNamed(context, '/instrucoes');}, true),
+
+
               actionButton('Mapa (locais de descarte)', Icons.map_rounded, (){
                 Navigator.push(
                   context,

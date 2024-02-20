@@ -2,7 +2,7 @@ import 'package:decarte_bem/firebase_options.dart';
 import 'package:decarte_bem/ui/views/faq_page.dart';
 import 'package:decarte_bem/ui/views/home_page.dart';
 import 'package:decarte_bem/ui/views/login_page.dart';
-import 'package:decarte_bem/ui/views/info_page.dart';
+import 'package:decarte_bem/ui/views/instrucoes_page.dart';
 import 'package:decarte_bem/ui/views/historico_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -34,8 +34,8 @@ class MyApp extends StatelessWidget {
         '/FAQ': (context) => const FAQPage(),
         '/home': (context) => const HomePage(),
         '/login': (context) => const LoginPage(),
-        '/info': (context) => const InfoPage(),
         '/historico': (context) => const HistoricoPage(),
+        '/instrucoes': (context) => const InstrucoesPage(),
       },
     );
   }
